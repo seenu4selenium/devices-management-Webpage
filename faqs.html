@@ -1,0 +1,208 @@
+<div id="faqs" class="tab-content">
+    <div class="jewellery-layout">
+        <div class="side-menu">
+            <button class="side-menu-btn active" onclick="showFAQCategory('manual')">Manual Testing FAQs</button>
+            <button class="side-menu-btn" onclick="showFAQCategory('automation')">Automation Testing FAQs</button>
+            <button class="side-menu-btn" onclick="showFAQCategory('api')">API Testing FAQs</button>
+            <button class="side-menu-btn" onclick="showFAQCategory('database')">Database Testing FAQs</button>
+        </div>
+        <div class="category-content">
+            <div id="faq-manual" class="faq-category active">
+                <h2>Manual Testing FAQs</h2>
+                <div class="faq-item">
+                    <h3>Q1: What is the difference between Smoke and Sanity testing?</h3>
+                    <p><strong>Smoke Testing:</strong> Performed to verify critical functionalities work. Done after build deployment. Wide and shallow coverage.</p>
+                    <p><strong>Sanity Testing:</strong> Performed to verify specific functionality after bug fixes. Narrow and deep coverage. Subset of regression testing.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Q2: Explain the Bug Life Cycle.</h3>
+                    <p>New → Assigned → Open → Fixed → Retest → Verified → Closed</p>
+                    <p>Other states: Rejected, Deferred, Duplicate, Reopened</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Q3: What is the difference between Severity and Priority?</h3>
+                    <p><strong>Severity:</strong> Impact of the bug on application functionality (Critical, Major, Minor, Trivial)</p>
+                    <p><strong>Priority:</strong> Order in which bug should be fixed (High, Medium, Low)</p>
+                    <p>Example: Spelling mistake on homepage - Low Severity, High Priority</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Q4: What are the different types of testing?</h3>
+                    <p>Functional: Unit, Integration, System, UAT, Smoke, Sanity, Regression</p>
+                    <p>Non-Functional: Performance, Load, Stress, Security, Usability, Compatibility</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Q5: What is Regression Testing?</h3>
+                    <p>Testing performed to ensure new code changes haven't adversely affected existing functionality. Done after bug fixes or new feature additions.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Q6: What is Test Case and Test Scenario?</h3>
+                    <p><strong>Test Scenario:</strong> High-level functionality to be tested (What to test)</p>
+                    <p><strong>Test Case:</strong> Detailed steps with expected results (How to test)</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Q7: What is Exploratory Testing?</h3>
+                    <p>Simultaneous learning, test design, and execution without formal test cases. Tester explores the application to find defects.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Q8: What is Ad-hoc Testing?</h3>
+                    <p>Informal testing without documentation or planning. Done randomly to break the system.</p>
+                </div>
+            </div>
+
+            <div id="faq-automation" class="faq-category">
+                <h2>Automation Testing FAQs</h2>
+                <div class="faq-item">
+                    <h3>Q1: What is the difference between findElement() and findElements()?</h3>
+                    <p><strong>findElement():</strong> Returns single WebElement. Throws NoSuchElementException if not found.</p>
+                    <p><strong>findElements():</strong> Returns List of WebElements. Returns empty list if not found.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Q2: Explain different types of waits in Selenium.</h3>
+                    <p><strong>Implicit Wait:</strong> Global wait applied to all elements. driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS)</p>
+                    <p><strong>Explicit Wait:</strong> Wait for specific condition. WebDriverWait wait = new WebDriverWait(driver, 10)</p>
+                    <p><strong>Fluent Wait:</strong> Wait with polling interval and ignore exceptions.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Q3: How do you handle dynamic elements in Selenium?</h3>
+                    <p>- Use dynamic XPath with contains(), starts-with(), text()</p>
+                    <p>- Use CSS selectors with partial attribute matching</p>
+                    <p>- Implement explicit waits</p>
+                    <p>- Use relative locators (Selenium 4)</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Q4: What is Page Object Model (POM)?</h3>
+                    <p>Design pattern where each web page is represented as a class. Page elements are defined as variables and actions as methods. Improves maintainability and reduces code duplication.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Q5: How do you handle alerts in Selenium?</h3>
+                    <p>driver.switchTo().alert().accept() - Accept alert</p>
+                    <p>driver.switchTo().alert().dismiss() - Dismiss alert</p>
+                    <p>driver.switchTo().alert().getText() - Get alert text</p>
+                    <p>driver.switchTo().alert().sendKeys("text") - Enter text in prompt</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Q6: What is TestNG and its advantages?</h3>
+                    <p>Testing framework inspired by JUnit. Advantages: Annotations, parallel execution, data-driven testing, test prioritization, grouping, reporting, dependency management.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Q7: How do you handle frames in Selenium?</h3>
+                    <p>driver.switchTo().frame(index/name/WebElement)</p>
+                    <p>driver.switchTo().defaultContent() - Switch back to main page</p>
+                    <p>driver.switchTo().parentFrame() - Switch to parent frame</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Q8: What is the difference between close() and quit()?</h3>
+                    <p><strong>close():</strong> Closes current browser window</p>
+                    <p><strong>quit():</strong> Closes all browser windows and ends WebDriver session</p>
+                </div>
+            </div>
+
+            <div id="faq-api" class="faq-category">
+                <h2>API Testing FAQs</h2>
+                <div class="faq-item">
+                    <h3>Q1: What is the difference between REST and SOAP?</h3>
+                    <p><strong>REST:</strong> Architectural style, uses HTTP methods, supports JSON/XML, stateless, lightweight</p>
+                    <p><strong>SOAP:</strong> Protocol, uses only XML, has built-in security, stateful/stateless, heavier</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Q2: Explain HTTP methods used in REST API.</h3>
+                    <p><strong>GET:</strong> Retrieve data</p>
+                    <p><strong>POST:</strong> Create new resource</p>
+                    <p><strong>PUT:</strong> Update entire resource</p>
+                    <p><strong>PATCH:</strong> Partial update</p>
+                    <p><strong>DELETE:</strong> Delete resource</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Q3: What are common HTTP status codes?</h3>
+                    <p>200 OK, 201 Created, 204 No Content</p>
+                    <p>400 Bad Request, 401 Unauthorized, 403 Forbidden, 404 Not Found</p>
+                    <p>500 Internal Server Error, 502 Bad Gateway, 503 Service Unavailable</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Q4: What validations do you perform in API testing?</h3>
+                    <p>- Status code validation</p>
+                    <p>- Response time validation</p>
+                    <p>- Response body validation (JSON schema)</p>
+                    <p>- Header validation</p>
+                    <p>- Data type and format validation</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Q5: How do you handle authentication in API testing?</h3>
+                    <p><strong>Basic Auth:</strong> Username and password in header</p>
+                    <p><strong>Bearer Token:</strong> JWT token in Authorization header</p>
+                    <p><strong>OAuth 2.0:</strong> Access token obtained through OAuth flow</p>
+                    <p><strong>API Key:</strong> Key passed in header or query parameter</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Q6: What is the difference between PUT and PATCH?</h3>
+                    <p><strong>PUT:</strong> Replaces entire resource. All fields must be provided.</p>
+                    <p><strong>PATCH:</strong> Partial update. Only modified fields need to be sent.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Q7: How do you test API performance?</h3>
+                    <p>- Measure response time</p>
+                    <p>- Load testing with multiple concurrent users</p>
+                    <p>- Stress testing to find breaking point</p>
+                    <p>- Monitor server resources (CPU, memory)</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Q8: What is JSON Schema validation?</h3>
+                    <p>Validates JSON response structure, data types, required fields, and constraints. Ensures API contract is maintained.</p>
+                </div>
+            </div>
+
+            <div id="faq-database" class="faq-category">
+                <h2>Database Testing FAQs</h2>
+                <div class="faq-item">
+                    <h3>Q1: What is the difference between DELETE and TRUNCATE?</h3>
+                    <p><strong>DELETE:</strong> DML command, can use WHERE clause, slower, can be rolled back, triggers fire</p>
+                    <p><strong>TRUNCATE:</strong> DDL command, removes all rows, faster, cannot be rolled back, triggers don't fire</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Q2: Explain different types of JOINs.</h3>
+                    <p><strong>INNER JOIN:</strong> Returns matching records from both tables</p>
+                    <p><strong>LEFT JOIN:</strong> All records from left table and matching from right</p>
+                    <p><strong>RIGHT JOIN:</strong> All records from right table and matching from left</p>
+                    <p><strong>FULL OUTER JOIN:</strong> All records from both tables</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Q3: What is the difference between WHERE and HAVING?</h3>
+                    <p><strong>WHERE:</strong> Filters rows before grouping, cannot use aggregate functions</p>
+                    <p><strong>HAVING:</strong> Filters groups after GROUP BY, can use aggregate functions</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Q4: What are ACID properties?</h3>
+                    <p><strong>Atomicity:</strong> All or nothing transaction</p>
+                    <p><strong>Consistency:</strong> Database remains in valid state</p>
+                    <p><strong>Isolation:</strong> Concurrent transactions don't interfere</p>
+                    <p><strong>Durability:</strong> Committed data is permanent</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Q5: What is the difference between Primary Key and Unique Key?</h3>
+                    <p><strong>Primary Key:</strong> Cannot be NULL, only one per table, creates clustered index</p>
+                    <p><strong>Unique Key:</strong> Can have one NULL, multiple per table, creates non-clustered index</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Q6: What is Normalization and its types?</h3>
+                    <p>Process of organizing data to reduce redundancy.</p>
+                    <p><strong>1NF:</strong> Atomic values, no repeating groups</p>
+                    <p><strong>2NF:</strong> 1NF + No partial dependency</p>
+                    <p><strong>3NF:</strong> 2NF + No transitive dependency</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Q7: What is the difference between Stored Procedure and Function?</h3>
+                    <p><strong>Stored Procedure:</strong> Can return multiple values, can use DML, cannot be called in SELECT</p>
+                    <p><strong>Function:</strong> Returns single value, cannot use DML, can be called in SELECT</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Q8: What validations do you perform in Database testing?</h3>
+                    <p>- Data integrity validation</p>
+                    <p>- Schema validation</p>
+                    <p>- CRUD operations validation</p>
+                    <p>- Stored procedures and triggers testing</p>
+                    <p>- Performance testing (query optimization)</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
