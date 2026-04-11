@@ -882,10 +882,12 @@ th {
 
 .faq-category {
     display: none;
+    width: 100%;
 }
 
 .faq-category.active {
     display: block;
+    width: 100%;
 }
 
 .faq-item {
