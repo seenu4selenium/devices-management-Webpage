@@ -176,6 +176,7 @@ function login() {
         if (userMgmtTab) {
             if (user.role === 'Admin') {
                 userMgmtTab.style.display = 'inline-block';
+                renderUsers();
             } else {
                 userMgmtTab.style.display = 'none';
                 openTab({currentTarget: document.querySelector('button[onclick="openTab(event, \'deviceManagement\')"]')}, 'deviceManagement');
@@ -1416,75 +1417,14 @@ function continueToJewellery() {
     }
     document.getElementById('gold').classList.add('active');
 }
-async function loadUsers() {
-    try {
-        const response = await fetch('/api/users');
-        const users = await response.json();
-        renderUsersFromDB(users);
-    } catch (error) {
-        console.error('Failed to load users');
-    }
+function loadUsers() {
+    users = JSON.parse(localStorage.getItem('users')) || [];
+    renderUsers();
 }
 
-function renderUsersFromDB(users) {
-    const tbody = document.getElementById('userTableBody');
-    if (!tbody) return;
-    tbody.innerHTML = '';
-
-    users.forEach(user => {
-        const row = document.createElement('tr');
-        row.innerHTML = `
-            <td>${user.name}</td>
-            <td>${user.email}</td>
-            <td>${'*'.repeat(user.password ? user.password.length : 3)}</td>
-            <td>${user.role}</td>
-            <td>
-                <button class="edit-btn" onclick="editUser(${user.id})">Edit</button>
-                <button class="delete-btn" onclick="deleteUser(${user.id})">Delete</button>
-            </td>
-        `;
-        tbody.appendChild(row);
-    });
-}
-
-async function loadDevices() {
-    try {
-        const response = await fetch('/api/devices');
-        const devices = await response.json();
-        renderDevicesFromDB(devices);
-    } catch (error) {
-        console.error('Failed to load devices');
-    }
-}
-
-function renderDevicesFromDB(devices) {
-    const tbody = document.getElementById('deviceTableBody2');
-    if (!tbody) return;
-    tbody.innerHTML = '';
-
-    devices.forEach(device => {
-        const row = document.createElement('tr');
-        let statusClass = '';
-        if (device.status.toLowerCase() === 'available') {
-            statusClass = 'status-available';
-        } else if (device.status.toLowerCase() === 'in-use') {
-            statusClass = 'status-in-use';
-        }
-        
-        row.innerHTML = `
-            <td>${device.name}</td>
-            <td>${device.type}</td>
-            <td>${device.os || 'N/A'}</td>
-            <td>${device.imei || 'N/A'}</td>
-            <td class="${statusClass}">${device.status}</td>
-            <td>${device.until_use ? new Date(device.until_use).toLocaleString() : 'N/A'}</td>
-            <td>
-                <button class="edit-btn" onclick="editDevice(${device.id})">Edit</button>
-                <button class="delete-btn" onclick="deleteDevice(${device.id})">Delete</button>
-            </td>
-        `;
-        tbody.appendChild(row);
-    });
+function loadDevices() {
+    devices = JSON.parse(localStorage.getItem('devices')) || [];
+    renderDevices2();
 }
 function showDiamondCategory(category) {
     const categories = document.querySelectorAll('.diamond-category');
