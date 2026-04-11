@@ -235,13 +235,6 @@ function showSignUp() {
     document.getElementById('signUpModal').style.display = 'flex';
 }
 
-function resetLocalStorage() {
-    if (confirm('This will reset all data. Continue?')) {
-        localStorage.clear();
-        location.reload();
-    }
-}
-
 function closeSignUp() {
     document.getElementById('signUpModal').style.display = 'none';
     document.getElementById('loginModal').style.display = 'flex';
@@ -256,17 +249,31 @@ function signUp() {
     const password = document.getElementById('signUpPassword').value.trim();
     const email = document.getElementById('signUpEmail').value.trim();
     const role = document.getElementById('signUpRole').value;
-    
+
     if (!name || !password || !email || !role) {
-        alert('Please fill all fields');
+        alert('Error: Please fill all fields.');
         return;
     }
-    
-    if (users.find(u => u.email === email)) {
-        alert('User with this email already exists!');
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+        alert('Error: Please enter a valid email address.');
         return;
     }
-    
+
+    if (password.length < 4) {
+        alert('Error: Password must be at least 4 characters.');
+        return;
+    }
+
+    // Reload from localStorage to get latest data
+    users = JSON.parse(localStorage.getItem('users')) || [];
+
+    if (users.find(u => u.name.toLowerCase() === name.toLowerCase() && u.email.toLowerCase() === email.toLowerCase())) {
+        alert('User already exists! An account with this name and email is already registered.');
+        return;
+    }
+
     const user = {
         id: Date.now(),
         name,
@@ -274,7 +281,7 @@ function signUp() {
         password,
         role
     };
-    
+
     users.push(user);
     saveUsers();
     alert('Account created successfully! You can now login.');
