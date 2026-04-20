@@ -256,14 +256,21 @@ function signUp() {
         return;
     }
 
+    const nameRegex = /^[a-zA-Z\s]+$/;
+    if (!nameRegex.test(name)) {
+        alert('Error: Name must contain only letters and spaces.');
+        return;
+    }
+
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
         alert('Error: Please enter a valid email address.');
         return;
     }
 
-    if (password.length < 4) {
-        alert('Error: Password must be at least 4 characters.');
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{8,}$/;
+    if (!passwordRegex.test(password)) {
+        alert('Error: Password must be at least 8 characters and include uppercase, lowercase, number, and special character.');
         return;
     }
 
