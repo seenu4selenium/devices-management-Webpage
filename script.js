@@ -1,26 +1,17 @@
 let devices = JSON.parse(localStorage.getItem('devices')) || [];
 let users = JSON.parse(localStorage.getItem('users')) || [];
 
-// Initialize default users if no users exist
-if (users.length === 0) {
-    users = [
-        {
-            id: Date.now(),
-            name: 'admin',
-            email: 'admin@example.com',
-            password: 'admin123',
-            role: 'Admin'
-        },
-        {
-            id: Date.now() + 1,
-            name: 'test',
-            email: 'test@example.com',
-            password: 'test',
-            role: 'User'
-        }
-    ];
-    localStorage.setItem('users', JSON.stringify(users));
-}
+// Always ensure default users exist
+const defaultUsers = [
+    { id: 1, name: 'admin', email: 'admin@example.com', password: 'admin123', role: 'Admin' },
+    { id: 2, name: 'test',  email: 'test@example.com',  password: 'test',     role: 'User'  }
+];
+defaultUsers.forEach(def => {
+    if (!users.find(u => u.name === def.name)) {
+        users.push(def);
+    }
+});
+localStorage.setItem('users', JSON.stringify(users));
 
 // Initialize sample devices if no devices exist
 if (devices.length === 0) {
