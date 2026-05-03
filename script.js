@@ -1084,46 +1084,19 @@ function toggleCardDetails() {
 
 function payAndConfirm() {
     const address = document.getElementById('deliveryAddress').value.trim();
-    const paymentType = document.getElementById('paymentType').value;
     const nameOnCard = document.getElementById('nameOnCard').value.trim();
     const cardNumber = document.getElementById('cardNumber').value.trim();
     const cvv = document.getElementById('cvv').value.trim();
     const expiration = document.getElementById('expiration').value.trim();
-    
-    if (!address) {
-        alert('Please enter your delivery address');
-        return;
-    }
-    
-    if (!nameOnCard || !cardNumber || !cvv || !expiration) {
-        alert('Please fill all card details');
-        return;
-    }
 
-    if (!/^[a-zA-Z ]+$/.test(nameOnCard)) {
-        alert('Name on Card should accept only Alphabets');
-        return;
-    }
-    if (nameOnCard.length > 25) {
-        alert('Name on Card should not exceed 25 characters');
-        return;
-    }
-    if (!/^[0-9]+$/.test(cardNumber)) {
-        alert('Card Number should accept only Numbers');
-        return;
-    }
-    if (cardNumber.length > 13) {
-        alert('Card Number should not exceed 13 digits');
-        return;
-    }
-    if (!/^[0-9]{3}$/.test(cvv)) {
-        alert('CVV should be exactly 3 digits');
-        return;
-    }
-    if (!/^(0[1-9]|1[0-2])\/\d{2}$/.test(expiration)) {
-        alert('Expiration should be in MM/YY format (e.g. 12/26)');
-        return;
-    }
+    if (!address) { alert('Please enter your delivery address'); return; }
+    if (!nameOnCard || !cardNumber || !cvv || !expiration) { alert('Please fill all card details'); return; }
+    if (!/^[a-zA-Z ]+$/.test(nameOnCard)) { alert('Name on Card should accept only Alphabets'); return; }
+    if (nameOnCard.length > 25) { alert('Name on Card should not exceed 25 characters'); return; }
+    if (!/^[0-9]+$/.test(cardNumber)) { alert('Card Number should accept only Numbers'); return; }
+    if (cardNumber.length > 13) { alert('Card Number should not exceed 13 digits'); return; }
+    if (!/^[0-9]{3}$/.test(cvv)) { alert('CVV should be exactly 3 digits'); return; }
+    if (!/^(0[1-9]|1[0-2])/[0-9]{2}$/.test(expiration)) { alert('Expiration should be in MM/YY format (e.g. 12/26)'); return; }
     
     // Store address before clearing
     localStorage.setItem('lastDeliveryAddress', address);
@@ -1417,41 +1390,15 @@ function payAndConfirmJewellery() {
     const cardNumber = document.getElementById('jewelleryCardNumber').value.trim();
     const cvv = document.getElementById('jewelleryCvv').value.trim();
     const expiration = document.getElementById('jewelleryExpiration').value.trim();
-    
-    if (!address) {
-        alert('Please enter your delivery address');
-        return;
-    }
-    
-    if (!nameOnCard || !cardNumber || !cvv || !expiration) {
-        alert('Please fill all card details');
-        return;
-    }
 
-    if (!/^[a-zA-Z ]+$/.test(nameOnCard)) {
-        alert('Name on Card should accept only Alphabets');
-        return;
-    }
-    if (nameOnCard.length > 25) {
-        alert('Name on Card should not exceed 25 characters');
-        return;
-    }
-    if (!/^[0-9]+$/.test(cardNumber)) {
-        alert('Card Number should accept only Numbers');
-        return;
-    }
-    if (cardNumber.length > 13) {
-        alert('Card Number should not exceed 13 digits');
-        return;
-    }
-    if (!/^[0-9]{3}$/.test(cvv)) {
-        alert('CVV should be exactly 3 digits');
-        return;
-    }
-    if (!/^(0[1-9]|1[0-2])\/\d{2}$/.test(expiration)) {
-        alert('Expiration should be in MM/YY format (e.g. 12/26)');
-        return;
-    }
+    if (!address) { alert('Please enter your delivery address'); return; }
+    if (!nameOnCard || !cardNumber || !cvv || !expiration) { alert('Please fill all card details'); return; }
+    if (!/^[a-zA-Z ]+$/.test(nameOnCard)) { alert('Name on Card should accept only Alphabets'); return; }
+    if (nameOnCard.length > 25) { alert('Name on Card should not exceed 25 characters'); return; }
+    if (!/^[0-9]+$/.test(cardNumber)) { alert('Card Number should accept only Numbers'); return; }
+    if (cardNumber.length > 13) { alert('Card Number should not exceed 13 digits'); return; }
+    if (!/^[0-9]{3}$/.test(cvv)) { alert('CVV should be exactly 3 digits'); return; }
+    if (!/^(0[1-9]|1[0-2])/[0-9]{2}$/.test(expiration)) { alert('Expiration should be in MM/YY format (e.g. 12/26)'); return; }
     
     localStorage.setItem('lastJewelleryAddress', address);
     
