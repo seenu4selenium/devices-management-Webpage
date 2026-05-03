@@ -2,20 +2,18 @@ let devices = JSON.parse(localStorage.getItem('devices')) || [];
 let users = JSON.parse(localStorage.getItem('users')) || [];
 
 // Always ensure default users exist with correct credentials
-const defaultUsers = [
-    { id: 1, name: 'admin', email: 'admin@example.com', password: 'admin123', role: 'Admin' },
-    { id: 2, name: 'test',  email: 'test@example.com',  password: 'test',     role: 'User'  }
-];
-defaultUsers.forEach(def => {
-    const idx = users.findIndex(u => u.name === def.name);
-    if (idx === -1) {
-        users.push(def);
-    } else {
-        users[idx].password = def.password;
-        users[idx].role = def.role;
-    }
-});
-localStorage.setItem('users', JSON.stringify(users));
+(function() {
+    const defaults = [
+        { id: 1, name: 'admin', email: 'admin@example.com', password: 'admin123', role: 'Admin' },
+        { id: 2, name: 'test',  email: 'test@example.com',  password: 'test',     role: 'User'  }
+    ];
+    defaults.forEach(def => {
+        const idx = users.findIndex(u => u.name === def.name);
+        if (idx === -1) { users.push(def); }
+        else { users[idx].password = def.password; users[idx].role = def.role; }
+    });
+    localStorage.setItem('users', JSON.stringify(users));
+})();
 
 // Initialize sample devices if no devices exist
 if (devices.length === 0) {
@@ -183,7 +181,6 @@ function login() {
         document.getElementById('username').value = '';
         document.getElementById('password').value = '';
         document.getElementById('userDisplay').textContent = `Logged in as: ${username}`;
-        history.pushState(null, '', '#home');
         
         const userMgmtTab = document.querySelector('button[onclick="openTab(event, \'userManagement\')"]');
         if (userMgmtTab) {
