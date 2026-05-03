@@ -213,7 +213,6 @@ function logout() {
 function showResetPassword() {
     document.getElementById('loginModal').style.display = 'none';
     document.getElementById('resetPasswordModal').style.display = 'flex';
-    history.pushState(null, '', '#reset-password');
 }
 
 function closeResetPassword() {
@@ -221,7 +220,6 @@ function closeResetPassword() {
     document.getElementById('loginModal').style.display = 'flex';
     document.getElementById('resetUsername').value = '';
     document.getElementById('newPassword').value = '';
-    history.pushState(null, '', '#login');
 }
 
 function resetPassword() {
@@ -249,7 +247,6 @@ function resetPassword() {
 function showSignUp() {
     document.getElementById('loginModal').style.display = 'none';
     document.getElementById('signUpModal').style.display = 'flex';
-    history.pushState(null, '', '#signup');
 }
 
 function closeSignUp() {
@@ -259,7 +256,6 @@ function closeSignUp() {
     document.getElementById('signUpPassword').value = '';
     document.getElementById('signUpEmail').value = '';
     document.getElementById('signUpRole').value = '';
-    history.pushState(null, '', '#login');
 }
 
 function signUp() {
@@ -285,9 +281,9 @@ function signUp() {
         return;
     }
 
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{8,}$/;
+    const passwordRegex = /^.{4,}$/;
     if (!passwordRegex.test(password)) {
-        alert('Error: Password must be at least 8 characters and include uppercase, lowercase, number, and special character.');
+        alert('Error: Password must be at least 4 characters.');
         return;
     }
 
