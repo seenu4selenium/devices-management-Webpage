@@ -1097,8 +1097,7 @@ function payAndConfirm() {
     if (cardNumber.length > 13) { alert('Card Number should not exceed 13 digits'); return; }
     if (!/^[0-9]{3}$/.test(cvv)) { alert('CVV should be exactly 3 digits'); return; }
     if (!/^(0[1-9]|1[0-2])/[0-9]{2}$/.test(expiration)) { alert('Expiration should be in MM/YY format (e.g. 12/26)'); return; }
-    
-    // Store address before clearing
+
     localStorage.setItem('lastDeliveryAddress', address);
     
     // Generate and display invoice number
@@ -1399,7 +1398,7 @@ function payAndConfirmJewellery() {
     if (cardNumber.length > 13) { alert('Card Number should not exceed 13 digits'); return; }
     if (!/^[0-9]{3}$/.test(cvv)) { alert('CVV should be exactly 3 digits'); return; }
     if (!/^(0[1-9]|1[0-2])/[0-9]{2}$/.test(expiration)) { alert('Expiration should be in MM/YY format (e.g. 12/26)'); return; }
-    
+
     localStorage.setItem('lastJewelleryAddress', address);
     
     const invoiceNumber = new Date().toISOString().replace(/[-T:Z.]/g, '').slice(0, 14);
