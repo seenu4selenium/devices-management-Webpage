@@ -1120,33 +1120,8 @@ function payAndConfirm() {
         alert('CVV should be exactly 3 digits');
         return;
     }
-    if (!/^(0[1-9]|1[0-2])/[0-9]{2}$/.test(expiration)) {
-        alert('Expiration should be in MM/YY format (e.g. 12/26)');
-        return;
-    }
-
-    if (!/^[a-zA-Z ]+$/.test(nameOnCard)) {
-        alert('Name on Card must contain only alphabets.');
-        return;
-    }
-    if (nameOnCard.length > 25) {
-        alert('Name on Card must not exceed 25 characters.');
-        return;
-    }
-    if (!/^\d+$/.test(cardNumber)) {
-        alert('Card Number must contain only numbers.');
-        return;
-    }
-    if (cardNumber.length > 13) {
-        alert('Card Number must not exceed 13 digits.');
-        return;
-    }
-    if (!/^\d{3}$/.test(cvv)) {
-        alert('CVV must be exactly 3 numbers.');
-        return;
-    }
     if (!/^(0[1-9]|1[0-2])\/\d{2}$/.test(expiration)) {
-        alert('Expiration must be in MM/YY format (e.g. 12/26).');
+        alert('Expiration should be in MM/YY format (e.g. 12/26)');
         return;
     }
     
@@ -1473,33 +1448,8 @@ function payAndConfirmJewellery() {
         alert('CVV should be exactly 3 digits');
         return;
     }
-    if (!/^(0[1-9]|1[0-2])/[0-9]{2}$/.test(expiration)) {
-        alert('Expiration should be in MM/YY format (e.g. 12/26)');
-        return;
-    }
-
-    if (!/^[a-zA-Z ]+$/.test(nameOnCard)) {
-        alert('Name on Card must contain only alphabets.');
-        return;
-    }
-    if (nameOnCard.length > 25) {
-        alert('Name on Card must not exceed 25 characters.');
-        return;
-    }
-    if (!/^\d+$/.test(cardNumber)) {
-        alert('Card Number must contain only numbers.');
-        return;
-    }
-    if (cardNumber.length > 13) {
-        alert('Card Number must not exceed 13 digits.');
-        return;
-    }
-    if (!/^\d{3}$/.test(cvv)) {
-        alert('CVV must be exactly 3 numbers.');
-        return;
-    }
     if (!/^(0[1-9]|1[0-2])\/\d{2}$/.test(expiration)) {
-        alert('Expiration must be in MM/YY format (e.g. 12/26).');
+        alert('Expiration should be in MM/YY format (e.g. 12/26)');
         return;
     }
     
