@@ -957,3 +957,16 @@ th {
     line-height: 1.6;
     color: #333;
 }
+
+.faq-layout {
+    flex-direction: row !important;
+    gap: 20px;
+}
+
+.faq-side-menu {
+    width: 220px !important;
+    flex-direction: column !important;
+    flex-wrap: nowrap !important;
+    flex-shrink: 0;
+    margin-bottom: 0 !important;
+}
