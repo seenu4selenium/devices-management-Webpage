@@ -1,14 +1,18 @@
 let devices = JSON.parse(localStorage.getItem('devices')) || [];
 let users = JSON.parse(localStorage.getItem('users')) || [];
 
-// Always ensure default users exist
+// Always ensure default users exist with correct credentials
 const defaultUsers = [
     { id: 1, name: 'admin', email: 'admin@example.com', password: 'admin123', role: 'Admin' },
     { id: 2, name: 'test',  email: 'test@example.com',  password: 'test',     role: 'User'  }
 ];
 defaultUsers.forEach(def => {
-    if (!users.find(u => u.name === def.name)) {
+    const idx = users.findIndex(u => u.name === def.name);
+    if (idx === -1) {
         users.push(def);
+    } else {
+        users[idx].password = def.password;
+        users[idx].role = def.role;
     }
 });
 localStorage.setItem('users', JSON.stringify(users));
