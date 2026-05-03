@@ -155,10 +155,27 @@ function login() {
     const username = document.getElementById('username').value.trim();
     const password = document.getElementById('password').value.trim();
     
-    if (!username || !password) {
-        alert('Please fill all fields');
-        return;
+    const usernameError = document.getElementById('usernameError');
+    const passwordError = document.getElementById('passwordError');
+    const loginError = document.getElementById('loginError');
+    
+    usernameError.textContent = '';
+    passwordError.textContent = '';
+    loginError.textContent = '';
+    
+    let valid = true;
+    
+    if (!username) {
+        usernameError.textContent = 'Username is required.';
+        valid = false;
     }
+    
+    if (!password) {
+        passwordError.textContent = 'Password is required.';
+        valid = false;
+    }
+    
+    if (!valid) return;
     
     // Reload users from localStorage to ensure we have latest data
     users = JSON.parse(localStorage.getItem('users')) || [];
@@ -171,6 +188,7 @@ function login() {
         document.getElementById('username').value = '';
         document.getElementById('password').value = '';
         document.getElementById('userDisplay').textContent = `Logged in as: ${username}`;
+        history.pushState(null, '', '#home');
         
         const userMgmtTab = document.querySelector('button[onclick="openTab(event, \'userManagement\')"]');
         if (userMgmtTab) {
@@ -183,7 +201,7 @@ function login() {
             }
         }
     } else {
-        alert('Invalid credentials! Please try again.');
+        loginError.textContent = 'Invalid username or password. Please try again.';
         document.getElementById('username').value = '';
         document.getElementById('password').value = '';
     }
@@ -200,6 +218,7 @@ function logout() {
 function showResetPassword() {
     document.getElementById('loginModal').style.display = 'none';
     document.getElementById('resetPasswordModal').style.display = 'flex';
+    history.pushState(null, '', '#reset-password');
 }
 
 function closeResetPassword() {
@@ -207,6 +226,7 @@ function closeResetPassword() {
     document.getElementById('loginModal').style.display = 'flex';
     document.getElementById('resetUsername').value = '';
     document.getElementById('newPassword').value = '';
+    history.pushState(null, '', '#login');
 }
 
 function resetPassword() {
@@ -234,6 +254,7 @@ function resetPassword() {
 function showSignUp() {
     document.getElementById('loginModal').style.display = 'none';
     document.getElementById('signUpModal').style.display = 'flex';
+    history.pushState(null, '', '#signup');
 }
 
 function closeSignUp() {
@@ -243,6 +264,7 @@ function closeSignUp() {
     document.getElementById('signUpPassword').value = '';
     document.getElementById('signUpEmail').value = '';
     document.getElementById('signUpRole').value = '';
+    history.pushState(null, '', '#login');
 }
 
 function signUp() {
