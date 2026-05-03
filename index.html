@@ -10,16 +10,24 @@
     <div id="loginModal" class="modal">
         <div class="modal-content">
             <h2>H2O Login</h2>
-            <label class="field-label">Username <span class="required">*</span></label>
-            <input type="text" id="username" placeholder="Username">
-            <div id="usernameError" class="field-error"></div>
-            <label class="field-label">Password <span class="required">*</span></label>
-            <input type="password" id="password" placeholder="Password">
-            <div id="passwordError" class="field-error"></div>
-            <div id="loginError" class="field-error"></div>
-            <button onclick="login()">Login</button>
-            <a href="#signup" onclick="showSignUp()" class="reset-link">Sign Up</a>
-            <a href="#reset-password" onclick="showResetPassword()" class="reset-link">Reset Password</a>
+            <div class="login-form">
+                <div class="login-field">
+                    <label class="field-label">Username <span class="required">*</span></label>
+                    <input type="text" id="username" placeholder="Username">
+                    <div id="usernameError" class="field-error"></div>
+                </div>
+                <div class="login-field">
+                    <label class="field-label">Password <span class="required">*</span></label>
+                    <input type="password" id="password" placeholder="Password">
+                    <div id="passwordError" class="field-error"></div>
+                </div>
+                <div id="loginError" class="field-error login-error"></div>
+                <button onclick="login()">Login</button>
+                <div class="login-links">
+                    <a href="#signup" onclick="showSignUp()" class="reset-link">Sign Up</a>
+                    <a href="#reset-password" onclick="showResetPassword()" class="reset-link">Reset Password</a>
+                </div>
+            </div>
         </div>
     </div>
 

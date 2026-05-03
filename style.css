@@ -308,14 +308,40 @@ th {
 .field-error {
     color: #dc3545;
     font-size: 12px;
-    margin: 2px 0 6px 0;
+    margin: 2px 0 4px 0;
     text-align: left;
+    min-height: 16px;
+}
+
+.login-error {
+    text-align: center;
+    margin-bottom: 8px;
+    font-size: 13px;
+}
+
+.login-form {
+    text-align: left;
+}
+
+.login-field {
+    margin-bottom: 5px;
+}
+
+.login-field input {
+    margin: 4px 0 0 0 !important;
+}
+
+.login-links {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5px;
 }
 
 .field-label {
     display: block;
     text-align: left;
     font-size: 14px;
+    font-weight: bold;
     margin-top: 8px;
     color: #333;
 }
