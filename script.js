@@ -227,7 +227,12 @@ function resetPassword() {
         alert('Please fill all fields');
         return;
     }
-    
+
+    if (!/^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{8,}$/.test(newPassword)) {
+        alert('New Password must be 8 Char, contains 1 Uppercase, 1 Special Char, 1 Number');
+        return;
+    }
+
     // Find user and update password
     const userIndex = users.findIndex(user => user.name === username);
     if (userIndex !== -1) {
