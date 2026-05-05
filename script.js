@@ -1095,6 +1095,7 @@ function payAndConfirm() {
     if (/\s/.test(cvv)) { alert('CVV should not contain spaces'); return; }
     if (!/^(0[1-9]|1[0-2])\/[0-9]{2}$/.test(expiration)) { alert('Expiration should be in MM/YY format (e.g. 12/26)'); return; }
     if (/\s/.test(expiration)) { alert('Expiration should not contain spaces'); return; }
+    if (/^00\/00$/.test(expiration)) { alert('Expiration date is invalid'); return; }
 
     localStorage.setItem('lastDeliveryAddress', address);
     
@@ -1401,6 +1402,7 @@ function payAndConfirmJewellery() {
     if (/\s/.test(cvv)) { alert('CVV should not contain spaces'); return; }
     if (!/^(0[1-9]|1[0-2])\/[0-9]{2}$/.test(expiration)) { alert('Expiration should be in MM/YY format (e.g. 12/26)'); return; }
     if (/\s/.test(expiration)) { alert('Expiration should not contain spaces'); return; }
+    if (/^00\/00$/.test(expiration)) { alert('Expiration date is invalid'); return; }
 
     localStorage.setItem('lastJewelleryAddress', address);
     
