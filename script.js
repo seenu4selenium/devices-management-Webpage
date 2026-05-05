@@ -210,6 +210,7 @@ function logout() {
 function showResetPassword() {
     document.getElementById('loginModal').style.display = 'none';
     document.getElementById('resetPasswordModal').style.display = 'flex';
+    window.location.hash = 'reset-password';
 }
 
 function closeResetPassword() {
@@ -217,6 +218,7 @@ function closeResetPassword() {
     document.getElementById('loginModal').style.display = 'flex';
     document.getElementById('resetUsername').value = '';
     document.getElementById('newPassword').value = '';
+    window.location.hash = 'login';
 }
 
 function resetPassword() {
@@ -249,6 +251,7 @@ function resetPassword() {
 function showSignUp() {
     document.getElementById('loginModal').style.display = 'none';
     document.getElementById('signUpModal').style.display = 'flex';
+    window.location.hash = 'signup';
 }
 
 function closeSignUp() {
@@ -258,6 +261,7 @@ function closeSignUp() {
     document.getElementById('signUpPassword').value = '';
     document.getElementById('signUpEmail').value = '';
     document.getElementById('signUpRole').value = '';
+    window.location.hash = 'login';
 }
 
 function signUp() {
