@@ -1088,8 +1088,13 @@ function payAndConfirm() {
     if (nameOnCard.length > 25) { alert('Name on Card should not exceed 25 characters'); return; }
     if (!/^[0-9]+$/.test(cardNumber)) { alert('Card Number should accept only Numbers'); return; }
     if (cardNumber.length > 13) { alert('Card Number should not exceed 13 digits'); return; }
+    if (/^0+$/.test(cardNumber)) { alert('Card Number cannot be all zeros'); return; }
+    if (/\s/.test(cardNumber)) { alert('Card Number should not contain spaces'); return; }
     if (!/^[0-9]{3}$/.test(cvv)) { alert('CVV should be exactly 3 digits'); return; }
+    if (/^0+$/.test(cvv)) { alert('CVV cannot be all zeros'); return; }
+    if (/\s/.test(cvv)) { alert('CVV should not contain spaces'); return; }
     if (!/^(0[1-9]|1[0-2])\/[0-9]{2}$/.test(expiration)) { alert('Expiration should be in MM/YY format (e.g. 12/26)'); return; }
+    if (/\s/.test(expiration)) { alert('Expiration should not contain spaces'); return; }
 
     localStorage.setItem('lastDeliveryAddress', address);
     
@@ -1389,8 +1394,13 @@ function payAndConfirmJewellery() {
     if (nameOnCard.length > 25) { alert('Name on Card should not exceed 25 characters'); return; }
     if (!/^[0-9]+$/.test(cardNumber)) { alert('Card Number should accept only Numbers'); return; }
     if (cardNumber.length > 13) { alert('Card Number should not exceed 13 digits'); return; }
+    if (/^0+$/.test(cardNumber)) { alert('Card Number cannot be all zeros'); return; }
+    if (/\s/.test(cardNumber)) { alert('Card Number should not contain spaces'); return; }
     if (!/^[0-9]{3}$/.test(cvv)) { alert('CVV should be exactly 3 digits'); return; }
+    if (/^0+$/.test(cvv)) { alert('CVV cannot be all zeros'); return; }
+    if (/\s/.test(cvv)) { alert('CVV should not contain spaces'); return; }
     if (!/^(0[1-9]|1[0-2])\/[0-9]{2}$/.test(expiration)) { alert('Expiration should be in MM/YY format (e.g. 12/26)'); return; }
+    if (/\s/.test(expiration)) { alert('Expiration should not contain spaces'); return; }
 
     localStorage.setItem('lastJewelleryAddress', address);
     
