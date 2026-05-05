@@ -1079,23 +1079,23 @@ function payAndConfirm() {
     const address = document.getElementById('deliveryAddress').value.trim();
     const nameOnCard = document.getElementById('nameOnCard').value.trim();
     const cardNumber = document.getElementById('cardNumber').value.trim();
-    const cvv = document.getElementById('cvv').value.trim();
+    const cvv = document.getElementById('cvv').value;
     const expiration = document.getElementById('expiration').value.trim();
 
     if (!address) { alert('Please enter your delivery address'); return; }
-    if (!nameOnCard || !cardNumber || !cvv || !expiration) { alert('Please fill all card details'); return; }
+    if (!nameOnCard || !cardNumber || !cvv.trim() || !expiration) { alert('Please fill all card details'); return; }
     if (!/^[a-zA-Z ]+$/.test(nameOnCard)) { alert('Name on Card should accept only Alphabets'); return; }
     if (nameOnCard.length > 25) { alert('Name on Card should not exceed 25 characters'); return; }
     if (!/^[0-9]+$/.test(cardNumber)) { alert('Card Number should accept only Numbers'); return; }
     if (cardNumber.length > 13) { alert('Card Number should not exceed 13 digits'); return; }
     if (/^0+$/.test(cardNumber)) { alert('Card Number cannot be all zeros'); return; }
     if (/\s/.test(cardNumber)) { alert('Card Number should not contain spaces'); return; }
-    if (!/^[0-9]{3}$/.test(cvv)) { alert('CVV should be exactly 3 digits'); return; }
-    if (/^0+$/.test(cvv)) { alert('CVV cannot be all zeros'); return; }
+    if (!/^[0-9]{3}$/.test(cvv.trim())) { alert('CVV should be exactly 3 digits'); return; }
+    if (/^0+$/.test(cvv.trim())) { alert('CVV cannot be all zeros'); return; }
     if (/\s/.test(cvv)) { alert('CVV should not contain spaces'); return; }
     if (!/^(0[1-9]|1[0-2])\/[0-9]{2}$/.test(expiration)) { alert('Expiration should be in MM/YY format (e.g. 12/26)'); return; }
     if (/\s/.test(expiration)) { alert('Expiration should not contain spaces'); return; }
-    if (/^00\/00$/.test(expiration)) { alert('Expiration date is invalid'); return; }
+    if (/\/00$/.test(expiration)) { alert('Expiration year is invalid'); return; }
 
     localStorage.setItem('lastDeliveryAddress', address);
     
@@ -1386,23 +1386,23 @@ function payAndConfirmJewellery() {
     const address = document.getElementById('jewelleryAddress').value.trim();
     const nameOnCard = document.getElementById('jewelleryNameOnCard').value.trim();
     const cardNumber = document.getElementById('jewelleryCardNumber').value.trim();
-    const cvv = document.getElementById('jewelleryCvv').value.trim();
+    const cvv = document.getElementById('jewelleryCvv').value;
     const expiration = document.getElementById('jewelleryExpiration').value.trim();
 
     if (!address) { alert('Please enter your delivery address'); return; }
-    if (!nameOnCard || !cardNumber || !cvv || !expiration) { alert('Please fill all card details'); return; }
+    if (!nameOnCard || !cardNumber || !cvv.trim() || !expiration) { alert('Please fill all card details'); return; }
     if (!/^[a-zA-Z ]+$/.test(nameOnCard)) { alert('Name on Card should accept only Alphabets'); return; }
     if (nameOnCard.length > 25) { alert('Name on Card should not exceed 25 characters'); return; }
     if (!/^[0-9]+$/.test(cardNumber)) { alert('Card Number should accept only Numbers'); return; }
     if (cardNumber.length > 13) { alert('Card Number should not exceed 13 digits'); return; }
     if (/^0+$/.test(cardNumber)) { alert('Card Number cannot be all zeros'); return; }
     if (/\s/.test(cardNumber)) { alert('Card Number should not contain spaces'); return; }
-    if (!/^[0-9]{3}$/.test(cvv)) { alert('CVV should be exactly 3 digits'); return; }
-    if (/^0+$/.test(cvv)) { alert('CVV cannot be all zeros'); return; }
+    if (!/^[0-9]{3}$/.test(cvv.trim())) { alert('CVV should be exactly 3 digits'); return; }
+    if (/^0+$/.test(cvv.trim())) { alert('CVV cannot be all zeros'); return; }
     if (/\s/.test(cvv)) { alert('CVV should not contain spaces'); return; }
     if (!/^(0[1-9]|1[0-2])\/[0-9]{2}$/.test(expiration)) { alert('Expiration should be in MM/YY format (e.g. 12/26)'); return; }
     if (/\s/.test(expiration)) { alert('Expiration should not contain spaces'); return; }
-    if (/^00\/00$/.test(expiration)) { alert('Expiration date is invalid'); return; }
+    if (/\/00$/.test(expiration)) { alert('Expiration year is invalid'); return; }
 
     localStorage.setItem('lastJewelleryAddress', address);
     
