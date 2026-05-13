@@ -312,8 +312,15 @@ function signUp() {
     users.push(user);
     saveUsers();
     renderUsers();
-    alert('Account created successfully! You can now login.');
     closeSignUp();
+    document.getElementById('loginError').textContent = '';
+    document.getElementById('usernameError').textContent = '';
+    document.getElementById('passwordError').textContent = '';
+    const successMsg = document.getElementById('signupSuccessMsg');
+    if (successMsg) {
+        successMsg.textContent = 'Account created successfully! You can now login.';
+        setTimeout(() => { successMsg.textContent = ''; }, 4000);
+    }
 }
 
 function editUser(id) {
