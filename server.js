@@ -3,6 +3,12 @@ const sqlite3 = require('sqlite3').verbose();
 const app = express();
 
 app.use(express.json());
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'Content-Type');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+    next();
+});
 app.use(express.static('.'));
 
 // Create SQLite database
@@ -88,6 +94,7 @@ app.get('/api/devices', (req, res) => {
     });
 });
 
-app.listen(3000, () => {
-    console.log('Server running on http://localhost:3000');
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
 });

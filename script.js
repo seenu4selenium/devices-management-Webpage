@@ -17,7 +17,13 @@ let users = JSON.parse(localStorage.getItem('users')) || [];
 
 // Detect if backend API is available
 let useAPI = false;
-fetch('/api/users').then(r => { if (r.ok) useAPI = true; }).catch(() => {});
+const API_BASE = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+    ? ''
+    : window.location.origin.includes('github.io')
+        ? 'https://h2o-device-management.onrender.com'
+        : '';
+
+fetch(API_BASE + '/api/users').then(r => { if (r.ok) useAPI = true; }).catch(() => {});
 
 // Initialize sample devices if no devices exist
 if (devices.length === 0) {
@@ -166,7 +172,7 @@ function login() {
     if (!valid) return;
 
     if (useAPI) {
-        fetch('/api/login', {
+        fetch(API_BASE + '/api/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ username, password })
@@ -323,7 +329,7 @@ function signUp() {
     const user = { id: Date.now(), name, email, password, role };
 
     if (useAPI) {
-        fetch('/api/signup', {
+        fetch(API_BASE + '/api/signup', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ name, email, password, role })
@@ -1493,7 +1499,7 @@ function continueToJewellery() {
 }
 function loadUsers() {
     if (useAPI) {
-        fetch('/api/users')
+        fetch(API_BASE + '/api/users')
         .then(r => r.json())
         .then(data => {
             users = data;
