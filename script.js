@@ -5,7 +5,7 @@ let users = JSON.parse(localStorage.getItem('users')) || [];
 (function() {
     const defaults = [
         { id: 1, name: 'admin', email: 'admin@example.com', password: 'admin123', role: 'Admin' },
-        { id: 2, name: 'test',  email: 'test@example.com',  password: 'test',     role: 'Normal User'  }
+        { id: 2, name: 'test',  email: 'test@example.com',  password: 'test',     role: 'Normal User' }
     ];
     defaults.forEach(def => {
         const idx = users.findIndex(u => u.name === def.name);
@@ -14,6 +14,10 @@ let users = JSON.parse(localStorage.getItem('users')) || [];
     });
     localStorage.setItem('users', JSON.stringify(users));
 })();
+
+// Detect if backend API is available
+let useAPI = false;
+fetch('/api/users').then(r => { if (r.ok) useAPI = true; }).catch(() => {});
 
 // Initialize sample devices if no devices exist
 if (devices.length === 0) {
@@ -147,55 +151,71 @@ function clearUserInputs() {
 function login() {
     const username = document.getElementById('username').value.trim();
     const password = document.getElementById('password').value.trim();
-    
+
     const usernameError = document.getElementById('usernameError');
     const passwordError = document.getElementById('passwordError');
     const loginError = document.getElementById('loginError');
-    
+
     usernameError.textContent = '';
     passwordError.textContent = '';
     loginError.textContent = '';
-    
+
     let valid = true;
-    
-    if (!username) {
-        usernameError.textContent = 'Username is required.';
-        valid = false;
-    }
-    
-    if (!password) {
-        passwordError.textContent = 'Password is required.';
-        valid = false;
-    }
-    
+    if (!username) { usernameError.textContent = 'Username is required.'; valid = false; }
+    if (!password) { passwordError.textContent = 'Password is required.'; valid = false; }
     if (!valid) return;
-    
-    // Reload users from localStorage to ensure we have latest data
-    users = JSON.parse(localStorage.getItem('users')) || [];
-    
-    const user = users.find(u => u.name === username && u.password === password);
-    
-    if (user) {
-        document.getElementById('loginModal').style.display = 'none';
-        document.getElementById('mainApp').style.display = 'block';
-        document.getElementById('username').value = '';
-        document.getElementById('password').value = '';
-        document.getElementById('userDisplay').textContent = `Logged in as: ${username}`;
-        
-        const userMgmtTab = document.querySelector('button[onclick="openTab(event, \'userManagement\')"]');
-        if (userMgmtTab) {
-            if (user.role === 'Admin') {
-                userMgmtTab.style.display = 'inline-block';
-                renderUsers();
+
+    if (useAPI) {
+        fetch('/api/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username, password })
+        })
+        .then(r => r.json())
+        .then(data => {
+            if (data.success) {
+                handleLoginSuccess(data.user);
             } else {
-                userMgmtTab.style.display = 'none';
-                openTab({currentTarget: document.querySelector('button[onclick="openTab(event, \'deviceManagement\')"]')}, 'deviceManagement');
+                loginError.textContent = 'Invalid username or password. Please try again.';
+                document.getElementById('username').value = '';
+                document.getElementById('password').value = '';
             }
-        }
+        })
+        .catch(() => loginLocally(username, password));
+    } else {
+        loginLocally(username, password);
+    }
+}
+
+function loginLocally(username, password) {
+    const loginError = document.getElementById('loginError');
+    users = JSON.parse(localStorage.getItem('users')) || [];
+    const user = users.find(u => u.name === username && u.password === password);
+    if (user) {
+        handleLoginSuccess(user);
     } else {
         loginError.textContent = 'Invalid username or password. Please try again.';
         document.getElementById('username').value = '';
         document.getElementById('password').value = '';
+    }
+}
+
+function handleLoginSuccess(user) {
+    document.getElementById('loginModal').style.display = 'none';
+    document.getElementById('mainApp').style.display = 'block';
+    document.getElementById('username').value = '';
+    document.getElementById('password').value = '';
+    document.getElementById('userDisplay').textContent = `Logged in as: ${user.name}`;
+
+    const userMgmtTab = document.querySelector('button[onclick="openTab(event, \'userManagement\')"]');
+    if (userMgmtTab) {
+        if (user.role === 'Admin') {
+            userMgmtTab.style.display = 'inline-block';
+            loadUsers();
+        } else {
+            userMgmtTab.style.display = 'none';
+            openTab({currentTarget: document.querySelector('button[onclick="openTab(event, \'deviceManagement\')"]')}, 'deviceManagement');
+        }
     }
 }
 
@@ -293,7 +313,6 @@ function signUp() {
         return;
     }
 
-    // Reload from localStorage to get latest data
     users = JSON.parse(localStorage.getItem('users')) || [];
 
     if (users.find(u => u.name.toLowerCase() === name.toLowerCase() && u.email.toLowerCase() === email.toLowerCase())) {
@@ -301,21 +320,42 @@ function signUp() {
         return;
     }
 
-    const user = {
-        id: Date.now(),
-        name,
-        email,
-        password,
-        role
-    };
+    const user = { id: Date.now(), name, email, password, role };
 
+    if (useAPI) {
+        fetch('/api/signup', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name, email, password, role })
+        })
+        .then(r => r.json())
+        .then(data => {
+            if (data.success) {
+                loadUsers();
+                closeSignUp();
+                showSignupSuccess();
+            } else {
+                alert('Signup failed: ' + (data.message || 'Unknown error'));
+            }
+        })
+        .catch(() => {
+            saveUserLocally(user);
+        });
+    } else {
+        saveUserLocally(user);
+    }
+}
+
+function saveUserLocally(user) {
     users.push(user);
     saveUsers();
     renderUsers();
     closeSignUp();
+    showSignupSuccess();
+}
+
+function showSignupSuccess() {
     document.getElementById('loginError').textContent = '';
-    document.getElementById('usernameError').textContent = '';
-    document.getElementById('passwordError').textContent = '';
     const successMsg = document.getElementById('signupSuccessMsg');
     if (successMsg) {
         successMsg.textContent = 'Account created successfully! You can now login.';
@@ -1452,8 +1492,21 @@ function continueToJewellery() {
     document.getElementById('gold').classList.add('active');
 }
 function loadUsers() {
-    users = JSON.parse(localStorage.getItem('users')) || [];
-    renderUsers();
+    if (useAPI) {
+        fetch('/api/users')
+        .then(r => r.json())
+        .then(data => {
+            users = data;
+            renderUsers();
+        })
+        .catch(() => {
+            users = JSON.parse(localStorage.getItem('users')) || [];
+            renderUsers();
+        });
+    } else {
+        users = JSON.parse(localStorage.getItem('users')) || [];
+        renderUsers();
+    }
 }
 
 function loadDevices() {

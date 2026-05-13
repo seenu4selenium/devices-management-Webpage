@@ -49,13 +49,18 @@ app.post('/api/login', (req, res) => {
 
 app.post('/api/signup', (req, res) => {
     const { name, email, password, role } = req.body;
-    db.run("INSERT INTO users (name, email, password, role) VALUES (?, ?, ?, ?)", 
-           [name, email, password, role], function(err) {
-        if (err) {
-            res.json({ success: false, message: 'Registration failed' });
-        } else {
-            res.json({ success: true });
+    db.get("SELECT id FROM users WHERE name = ? OR email = ?", [name, email], (err, row) => {
+        if (row) {
+            return res.json({ success: false, message: 'User already exists with that name or email.' });
         }
+        db.run("INSERT INTO users (name, email, password, role) VALUES (?, ?, ?, ?)",
+               [name, email, password, role], function(err) {
+            if (err) {
+                res.json({ success: false, message: 'Registration failed' });
+            } else {
+                res.json({ success: true });
+            }
+        });
     });
 });
 
