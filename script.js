@@ -5,7 +5,7 @@ let users = JSON.parse(localStorage.getItem('users')) || [];
 (function() {
     const defaults = [
         { id: 1, name: 'admin', email: 'admin@example.com', password: 'admin123', role: 'Admin' },
-        { id: 2, name: 'test',  email: 'test@example.com',  password: 'test',     role: 'User'  }
+        { id: 2, name: 'test',  email: 'test@example.com',  password: 'test',     role: 'Normal User'  }
     ];
     defaults.forEach(def => {
         const idx = users.findIndex(u => u.name === def.name);
@@ -311,6 +311,7 @@ function signUp() {
 
     users.push(user);
     saveUsers();
+    renderUsers();
     alert('Account created successfully! You can now login.');
     closeSignUp();
 }
