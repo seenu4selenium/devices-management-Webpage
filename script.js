@@ -362,11 +362,7 @@ function saveUserLocally(user) {
 
 function showSignupSuccess() {
     document.getElementById('loginError').textContent = '';
-    const successMsg = document.getElementById('signupSuccessMsg');
-    if (successMsg) {
-        successMsg.textContent = 'Account created successfully! You can now login.';
-        setTimeout(() => { successMsg.textContent = ''; }, 4000);
-    }
+    alert('Account created successfully! You can now login.');
 }
 
 function editUser(id) {
