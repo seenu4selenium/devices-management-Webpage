@@ -313,9 +313,9 @@ function signUp() {
         return;
     }
 
-    const passwordRegex = /^.{4,}$/;
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{8,}$/;
     if (!passwordRegex.test(password)) {
-        alert('Error: Password must be at least 4 characters.');
+        alert('Error: Password must be at least 8 characters and include uppercase, lowercase, number, and special character.');
         return;
     }
 
