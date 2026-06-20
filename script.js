@@ -292,7 +292,7 @@ function closeSignUp() {
 
 function signUp() {
     const name = document.getElementById('signUpName').value.trim();
-    const password = document.getElementById('signUpPassword').value.trim();
+    const password = document.getElementById('signUpPassword').value;
     const email = document.getElementById('signUpEmail').value.trim();
     const role = document.getElementById('signUpRole').value;
 
