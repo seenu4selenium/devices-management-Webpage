@@ -570,7 +570,7 @@ function renderCalendar() {
         if (cellDate < new Date(now.getFullYear(), now.getMonth(), now.getDate())) {
             cell.classList.add('cal-disabled');
         } else {
-            cell.onclick = () => selectDay(d);
+            cell.onclick = (e) => { e.stopPropagation(); selectDay(d); };
             if (calSelectedDate &&
                 calSelectedDate.getDate() === d &&
                 calSelectedDate.getMonth() === month &&
