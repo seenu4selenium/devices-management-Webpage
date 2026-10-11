@@ -106,8 +106,8 @@
                 </select>
                 <input type="number" id="deviceIMEI2" placeholder="Device IMEI#">
                 <div class="custom-calendar-wrapper" id="calendarWrapper">
-                    <input type="text" id="deviceUntilUse2" placeholder="Select Date & Time" readonly onclick="toggleCalendar()" autocomplete="off">
-                    <div class="custom-calendar" id="customCalendar" style="display:none;">
+                    <input type="text" id="deviceUntilUse2" placeholder="Select Date & Time" readonly onclick="event.stopPropagation(); toggleCalendar()" autocomplete="off">
+                    <div class="custom-calendar" id="customCalendar" style="display:none;" onclick="event.stopPropagation()">
                         <div class="cal-header">
                             <button type="button" onclick="changeMonth(-1)">&#8249;</button>
                             <span id="calMonthYear"></span>
