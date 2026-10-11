@@ -584,6 +584,9 @@ function renderCalendar() {
 
 function selectDay(d) {
     calSelectedDate = new Date(calViewDate.getFullYear(), calViewDate.getMonth(), d);
+    const pad = n => String(n).padStart(2, '0');
+    const display = `${calSelectedDate.getFullYear()}-${pad(calSelectedDate.getMonth()+1)}-${pad(calSelectedDate.getDate())}`;
+    document.getElementById('deviceUntilUse2').value = display;
     renderCalendar();
 }
 
