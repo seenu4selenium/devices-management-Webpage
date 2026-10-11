@@ -64,48 +64,41 @@ function clearUserInputs() {
     document.getElementById('userRole').value = '';
 }
 
-async function login() {
-    const username = document.getElementById('username').value;
-    const password = document.getElementById('password').value;
-    
-    try {
-        const response = await fetch('/api/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ username, password })
-        });
-        
-        const result = await response.json();
-        
-        if (result.success) {
-            const user = result.user;
-            document.getElementById('loginModal').style.display = 'none';
-            document.getElementById('mainApp').style.display = 'block';
-            document.getElementById('username').value = '';
-            document.getElementById('password').value = '';
-            document.getElementById('userDisplay').textContent = `Logged in as: ${username}`;
-            
-            const userMgmtTab = document.querySelector('button[onclick="openTab(event, \'userManagement\')"]');
-            if (user.role === 'Admin') {
-                userMgmtTab.style.display = 'inline-block';
-                document.querySelectorAll('.admin-only').forEach(el => el.style.display = 'block');
-                document.querySelectorAll('.user-view').forEach(el => el.style.display = 'none');
-            } else {
-                userMgmtTab.style.display = 'none';
-                document.querySelectorAll('.admin-only').forEach(el => el.style.display = 'none');
-                document.querySelectorAll('.user-view').forEach(el => el.style.display = 'block');
-                displayFAQsForUsers();
-                openTab({currentTarget: document.querySelector('button[onclick="openTab(event, \'deviceManagement\')"]')}, 'deviceManagement');
-            }
+function login() {
+    const username = document.getElementById('username').value.trim();
+    const password = document.getElementById('password').value.trim();
+
+    const storedUsers = JSON.parse(localStorage.getItem('users')) || [];
+    const defaultUsers = [
+        { id: 1, name: 'admin', email: 'admin@h2o.com', password: 'admin123', role: 'Admin' },
+        { id: 2, name: 'test', email: 'test@h2o.com', password: 'test', role: 'Normal User' }
+    ];
+    const allUsers = [...defaultUsers, ...storedUsers];
+    const user = allUsers.find(u => u.name === username && u.password === password);
+
+    if (user) {
+        document.getElementById('loginModal').style.display = 'none';
+        document.getElementById('mainApp').style.display = 'block';
+        document.getElementById('username').value = '';
+        document.getElementById('password').value = '';
+        document.getElementById('userDisplay').textContent = `Logged in as: ${username}`;
+
+        const userMgmtTab = document.querySelector('button[onclick="openTab(event, \'userManagement\')"]');
+        if (user.role === 'Admin') {
+            userMgmtTab.style.display = 'inline-block';
+            document.querySelectorAll('.admin-only').forEach(el => el.style.display = 'block');
+            document.querySelectorAll('.user-view').forEach(el => el.style.display = 'none');
         } else {
-            alert('Invalid credentials! Please try again.');
-            document.getElementById('username').value = '';
-            document.getElementById('password').value = '';
+            userMgmtTab.style.display = 'none';
+            document.querySelectorAll('.admin-only').forEach(el => el.style.display = 'none');
+            document.querySelectorAll('.user-view').forEach(el => el.style.display = 'block');
+            displayFAQsForUsers();
+            openTab({currentTarget: document.querySelector('button[onclick="openTab(event, \'deviceManagement\')"]')}, 'deviceManagement');
         }
-    } catch (error) {
-        alert('Server connection failed. Please check if server is running.');
+    } else {
+        alert('Invalid credentials! Please try again.');
+        document.getElementById('username').value = '';
+        document.getElementById('password').value = '';
     }
 }
 
@@ -165,37 +158,28 @@ function closeSignUp() {
     document.getElementById('signUpRole').value = '';
 }
 
-async function signUp() {
+function signUp() {
     const name = document.getElementById('signUpName').value.trim();
     const password = document.getElementById('signUpPassword').value.trim();
     const email = document.getElementById('signUpEmail').value.trim();
     const role = document.getElementById('signUpRole').value;
-    
+
     if (!name || !password || !email || !role) {
         alert('Please fill all fields');
         return;
     }
-    
-    try {
-        const response = await fetch('/api/signup', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ name, email, password, role })
-        });
-        
-        const result = await response.json();
-        
-        if (result.success) {
-            alert('Account created successfully! You can now login.');
-            closeSignUp();
-        } else {
-            alert('Registration failed: ' + result.message);
-        }
-    } catch (error) {
-        alert('Registration failed. Please check server connection.');
+
+    const storedUsers = JSON.parse(localStorage.getItem('users')) || [];
+    const exists = storedUsers.find(u => u.name === name);
+    if (exists) {
+        alert('Username already exists!');
+        return;
     }
+
+    storedUsers.push({ id: Date.now(), name, email, password, role });
+    localStorage.setItem('users', JSON.stringify(storedUsers));
+    alert('Account created successfully! You can now login.');
+    closeSignUp();
 }
 
 function editUser(id) {
@@ -378,7 +362,7 @@ function editDevice(id) {
     document.getElementById('cancelEditBtn').style.display = 'inline-block';
 }
 
-async function updateDevice() {
+function updateDevice() {
     const name = document.getElementById('deviceName2').value.trim();
     const type = document.getElementById('deviceType2').value;
     const os = document.getElementById('deviceOS2').value;
@@ -391,25 +375,12 @@ async function updateDevice() {
         return;
     }
 
-    try {
-        const response = await fetch('/api/updateDevice', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ id: editingDeviceId, name, type, os, imei, status, until_use: untilUse })
-        });
-        
-        const result = await response.json();
-        
-        if (result.success) {
-            cancelEdit();
-            setTimeout(loadDevices, 100);
-        } else {
-            alert('Device update failed: ' + result.message);
-        }
-    } catch (error) {
-        alert('Device update failed. Please check server connection.');
+    const idx = allDevicesData.findIndex(d => d.id === editingDeviceId);
+    if (idx !== -1) {
+        allDevicesData[idx] = { id: editingDeviceId, name, type, os, imei, status, until_use: untilUse };
+        localStorage.setItem('devices2', JSON.stringify(allDevicesData));
+        cancelEdit();
+        renderDevicesFromDBPaginated(allDevicesData);
     }
 }
 
@@ -429,7 +400,7 @@ function cancelEdit() {
     document.getElementById('cancelEditBtn').style.display = 'none';
 }
 
-async function addDevice2() {
+function addDevice2() {
     const name = document.getElementById('deviceName2').value.trim();
     const type = document.getElementById('deviceType2').value;
     const os = document.getElementById('deviceOS2').value;
@@ -442,56 +413,26 @@ async function addDevice2() {
         return;
     }
 
-    try {
-        const response = await fetch('/api/addDevice', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ name, type, os, imei, status, until_use: untilUse })
-        });
-        
-        const result = await response.json();
-        
-        if (result.success) {
-            document.getElementById('deviceName2').value = '';
-            document.getElementById('deviceType2').value = '';
-            document.getElementById('deviceOS2').value = '';
-            document.getElementById('deviceIMEI2').value = '';
-            document.getElementById('deviceUntilUse2').value = '';
-            document.getElementById('deviceStatus2').value = '';
-            
-            deviceCurrentPage = 1;
-            setTimeout(loadDevices, 100);
-        } else {
-            alert('Device add failed: ' + result.message);
-        }
-    } catch (error) {
-        alert('Device add failed. Please check server connection.');
-    }
+    const newDevice = { id: Date.now(), name, type, os, imei, status, until_use: untilUse };
+    allDevicesData.push(newDevice);
+    localStorage.setItem('devices2', JSON.stringify(allDevicesData));
+
+    document.getElementById('deviceName2').value = '';
+    document.getElementById('deviceType2').value = '';
+    document.getElementById('deviceOS2').value = '';
+    document.getElementById('deviceIMEI2').value = '';
+    document.getElementById('deviceUntilUse2').value = '';
+    document.getElementById('deviceStatus2').value = '';
+
+    deviceCurrentPage = 1;
+    renderDevicesFromDBPaginated(allDevicesData);
 }
 
-async function deleteDevice(id) {
+function deleteDevice(id) {
     if (confirm('Are you sure you want to delete this device?')) {
-        try {
-            const response = await fetch('/api/deleteDevice', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ id })
-            });
-            
-            const result = await response.json();
-            
-            if (result.success) {
-                setTimeout(loadDevices, 100);
-            } else {
-                alert('Device delete failed: ' + result.message);
-            }
-        } catch (error) {
-            alert('Device delete failed. Please check server connection.');
-        }
+        allDevicesData = allDevicesData.filter(d => d.id !== id);
+        localStorage.setItem('devices2', JSON.stringify(allDevicesData));
+        renderDevicesFromDBPaginated(allDevicesData);
     }
 }
 
@@ -1391,14 +1332,14 @@ function continueToJewellery() {
     }
     document.getElementById('gold').classList.add('active');
 }
-async function loadUsers() {
-    try {
-        const response = await fetch('/api/users');
-        const users = await response.json();
-        renderUsersFromDB(users);
-    } catch (error) {
-        console.error('Failed to load users');
-    }
+function loadUsers() {
+    const storedUsers = JSON.parse(localStorage.getItem('users')) || [];
+    const defaultUsers = [
+        { id: 1, name: 'admin', email: 'admin@h2o.com', password: 'admin123', role: 'Admin' },
+        { id: 2, name: 'test', email: 'test@h2o.com', password: 'test', role: 'Normal User' }
+    ];
+    const allUsers = [...defaultUsers, ...storedUsers];
+    renderUsersFromDB(allUsers);
 }
 
 function renderUsersFromDB(users) {
@@ -1422,14 +1363,9 @@ function renderUsersFromDB(users) {
     });
 }
 
-async function loadDevices() {
-    try {
-        const response = await fetch('/api/devices');
-        const devices = await response.json();
-        renderDevicesFromDBPaginated(devices);
-    } catch (error) {
-        console.error('Failed to load devices');
-    }
+function loadDevices() {
+    allDevicesData = JSON.parse(localStorage.getItem('devices2')) || [];
+    renderDevicesFromDBPaginated(allDevicesData);
 }
 
 function renderDevicesFromDB(devices) {
