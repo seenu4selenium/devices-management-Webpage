@@ -1,0 +1,1113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Help to Others</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <h2>H2O Login</h2>
+            <input type="text" id="username" placeholder="Username">
+            <input type="password" id="password" placeholder="Password">
+            <button onclick="login()">Login</button>
+            <a href="#" onclick="showResetPassword()" class="reset-link">Reset Password</a>
+            <a href="#" onclick="showSignUp()" class="reset-link">Sign Up</a>
+        </div>
+    </div>
+
+    <div id="signUpModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <h2>Sign Up</h2>
+            <input type="text" id="signUpName" placeholder="Name">
+            <input type="password" id="signUpPassword" placeholder="Password">
+            <input type="email" id="signUpEmail" placeholder="Email">
+            <select id="signUpRole">
+                <option value="">Select UserType</option>
+                <option value="Admin">Admin</option>
+                <option value="Normal User">Normal User</option>
+            </select>
+            <button onclick="signUp()">Sign Up</button>
+            <button onclick="closeSignUp()">Cancel</button>
+        </div>
+    </div>
+
+    <div id="resetPasswordModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <h2>Reset Password</h2>
+            <input type="text" id="resetUsername" placeholder="Username">
+            <input type="password" id="newPassword" placeholder="New Password">
+            <button onclick="resetPassword()">Update Password</button>
+            <button onclick="closeResetPassword()">Cancel</button>
+        </div>
+    </div>
+
+    <div class="container" id="mainApp" style="display: none;">
+        <div class="header">
+            <div class="logo-section">
+                <div class="logo">Help2Others</div>
+            </div>
+            <div class="user-info">
+                <span id="userDisplay">Logged in as: admin</span>
+                <button class="logout-btn" onclick="logout()">Logout</button>
+            </div>
+        </div>
+        
+        <div class="tabs">
+            <button class="tab-button active" onclick="openTab(event, 'userManagement')">User Management</button>
+            <button class="tab-button" onclick="openTab(event, 'deviceManagement')">Device Management</button>
+            <button class="tab-button" onclick="openTab(event, 'automationExercise')">E-commerce-Fashion</button>
+            <button class="tab-button" onclick="openTab(event, 'h2oJewellery')">H2O Jewellery</button>
+            <button class="tab-button" onclick="openTab(event, 'faqManagement')">FAQ's</button>
+        </div>
+
+        <div id="userManagement" class="tab-content active">
+            <div class="filter-section">
+                <input type="text" id="nameFilterUser" placeholder="Filter by name..." onkeyup="filterUsersAdvanced()">
+                <input type="text" id="emailFilter" placeholder="Filter by email..." onkeyup="filterUsersAdvanced()">
+                <select id="roleFilter" onchange="filterUsersAdvanced()">
+                    <option value="">All Roles</option>
+                    <option value="Admin">Admin</option>
+                    <option value="Normal User">Normal User</option>
+                </select>
+                <button onclick="clearUserFilters()" class="clear-btn">Clear</button>
+            </div>
+            <h3>Users</h3>
+            <table id="userTable">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Password</th>
+                        <th>Role</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="userTableBody">
+                </tbody>
+            </table>
+        </div>
+
+        <div id="deviceManagement" class="tab-content">
+            <div class="add-device">
+                <input type="text" id="deviceName2" placeholder="Device Name">
+                <select id="deviceType2">
+                    <option value="">Select Device Type</option>
+                    <option value="Mobile">Mobile</option>
+                    <option value="Tablet">Tablet</option>
+                    <option value="Watch">Watch</option>
+                </select>
+                <select id="deviceOS2">
+                    <option value="">Select Device OS</option>
+                    <option value="iOS">iOS</option>
+                    <option value="Android">Android</option>
+                </select>
+                <input type="number" id="deviceIMEI2" placeholder="Device IMEI#">
+                <div class="custom-calendar-wrapper" id="calendarWrapper">
+                    <input type="text" id="deviceUntilUse2" placeholder="Select Date & Time" readonly onclick="toggleCalendar()" autocomplete="off">
+                    <div class="custom-calendar" id="customCalendar" style="display:none;">
+                        <div class="cal-header">
+                            <button type="button" onclick="changeMonth(-1)">&#8249;</button>
+                            <span id="calMonthYear"></span>
+                            <button type="button" onclick="changeMonth(1)">&#8250;</button>
+                        </div>
+                        <div class="cal-days-header">
+                            <span>Su</span><span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span>
+                        </div>
+                        <div class="cal-days" id="calDays"></div>
+
+                        <div class="cal-footer">
+                            <button type="button" onclick="confirmCalendar()">OK</button>
+                            <button type="button" onclick="closeCalendar()">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+                <select id="deviceStatus2">
+                    <option value="">Select Status</option>
+                    <option value="In-Use">In-Use</option>
+                    <option value="Available">Available</option>
+                </select>
+                <button onclick="addDevice2()" id="addDeviceBtn">Add Device</button>
+                <button onclick="updateDevice()" id="updateDeviceBtn" style="display: none;">Update Device</button>
+                <button onclick="cancelEdit()" id="cancelEditBtn" style="display: none;">Cancel</button>
+            </div>
+            <h2>Devices</h2>
+            <div class="filter-section">
+                <input type="text" id="nameFilter" placeholder="Filter by name..." onkeyup="filterDevicesAdvanced()">
+                <input type="text" id="typeFilter" placeholder="Filter by type..." onkeyup="filterDevicesAdvanced()">
+                <input type="text" id="imeiFilter" placeholder="Filter by IMEI#..." onkeyup="filterDevicesAdvanced()">
+                <select id="statusFilter" onchange="filterDevicesAdvanced()">
+                    <option value="">All Status</option>
+                    <option value="Available">Available</option>
+                    <option value="In-Use">In-Use</option>
+                </select>
+                <button onclick="clearFilters()" class="clear-btn">Clear</button>
+            </div>
+            <table id="deviceTable2">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>OS</th>
+                        <th>IMEI#</th>
+                        <th>Status</th>
+                        <th>Until Use</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="deviceTableBody2">
+                </tbody>
+            </table>
+            <div class="pagination">
+                <button onclick="firstDevicePage()" id="deviceFirstBtn">First</button>
+                <button onclick="previousDevicePage()" id="devicePrevBtn">Previous</button>
+                <span id="devicePageInfo">Page 1 of 1</span>
+                <button onclick="nextDevicePage()" id="deviceNextBtn">Next</button>
+                <button onclick="lastDevicePage()" id="deviceLastBtn">Last</button>
+            </div>
+        </div>
+
+        <div id="automationExercise" class="tab-content">
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'products')">Products</button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'cart')">Cart</button>
+            </div>
+
+            <div id="products" class="sub-tab-content active">
+                <h2>Products</h2>
+                <div class="filter-section">
+                    <input type="text" id="productNameFilter" placeholder="Filter by name..." onkeyup="filterProducts()">
+                    <select id="productPriceFilter" onchange="filterProducts()">
+                        <option value="">All Prices</option>
+                        <option value="0-10">$0 to $10</option>
+                        <option value="11-29">$11 to $29</option>
+                        <option value="30-75">$30 to $75</option>
+                        <option value="76-150">$76 to $150</option>
+                        <option value="150+">More than $150</option>
+                    </select>
+                    <button onclick="clearProductFilters()" class="clear-btn">Clear</button>
+                </div>
+                <div class="products-grid" id="productsGrid">
+                    <!-- Products will be dynamically loaded here -->
+                </div>
+                <div class="pagination">
+                    <button onclick="firstPage()" id="firstBtn">First</button>
+                    <button onclick="previousPage()" id="prevBtn">Previous</button>
+                    <span id="pageInfo">Page 1 of 9</span>
+                    <button onclick="nextPage()" id="nextBtn">Next</button>
+                    <button onclick="lastPage()" id="lastBtn">Last</button>
+                </div>
+            </div>
+
+            <div id="cart" class="sub-tab-content">
+                <h2>Shopping Cart</h2>
+                <div id="cartItems">
+                    <!-- Cart items will be displayed here -->
+                </div>
+                <div class="cart-total">
+                    <h3>Total: $<span id="cartTotal">0.00</span></h3>
+                    <button class="checkout-btn" onclick="showCheckout()">Checkout</button>
+                    <button class="clear-cart-btn" onclick="clearCart()">Clear Cart</button>
+                </div>
+            </div>
+
+            <div id="checkout" class="sub-tab-content">
+                <h2>Checkout</h2>
+                <div class="checkout-form">
+                    <div class="form-group">
+                        <label for="deliveryAddress">Your delivery address:</label>
+                        <textarea id="deliveryAddress" placeholder="Enter your delivery address" rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="paymentType">Payment Type:</label>
+                        <select id="paymentType" onchange="toggleCardDetails()">
+                            <option value="">Select Payment Type</option>
+                            <option value="Credit Card">Credit Card</option>
+                            <option value="Debit Card">Debit Card</option>
+                            <option value="Cash on Delivery">Cash on Delivery</option>
+                        </select>
+                    </div>
+                    <div id="cardDetails" class="card-details" style="display: none;">
+                        <div class="form-group">
+                            <label for="nameOnCard">Name on Card:</label>
+                            <input type="text" id="nameOnCard" placeholder="Enter name on card">
+                        </div>
+                        <div class="form-group">
+                            <label for="cardNumber">Card Number:</label>
+                            <input type="text" id="cardNumber" placeholder="Enter card number">
+                        </div>
+                        <div class="form-group">
+                            <label for="cvv">CVV:</label>
+                            <input type="text" id="cvv" placeholder="Enter CVV">
+                        </div>
+                        <div class="form-group">
+                            <label for="expiration">Expiration:</label>
+                            <input type="text" id="expiration" placeholder="MM/YY">
+                        </div>
+                    </div>
+                    <div class="checkout-total">
+                        <h3>Total: $<span id="checkoutTotal">0.00</span></h3>
+                    </div>
+                    <div class="checkout-buttons">
+                        <button class="place-order-btn" onclick="placeOrder()" id="placeOrderBtn">Place Order</button>
+                        <button class="place-order-btn" onclick="payAndConfirm()" id="payConfirmBtn" style="display: none;">Place Order</button>
+                        <button class="back-to-cart-btn" onclick="backToCart()">Back to Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="orderPlaced" class="sub-tab-content">
+                <h2>Order Placed!</h2>
+                <div class="success-message">
+                    <h3>Congratulations! Your order has been confirmed!</h3>
+                    <p id="invoiceNumberDisplay"></p>
+                    <div class="success-buttons">
+                        <button class="download-invoice-btn" onclick="downloadInvoice()">Download Invoice</button>
+                        <button class="continue-btn" onclick="continueToProducts()">Continue</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="h2oJewellery" class="tab-content">
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'gold')">Gold</button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'diamond')">Diamond</button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'silver')">Silver</button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'branches')">Cart</button>
+            </div>
+
+            <div id="gold" class="sub-tab-content active">
+                <div class="jewellery-layout">
+                    <div class="side-menu">
+                        <button class="side-menu-btn active" onclick="showGoldCategory('earrings')">Earrings</button>
+                        <button class="side-menu-btn" onclick="showGoldCategory('ring')">Ring</button>
+                        <button class="side-menu-btn" onclick="showGoldCategory('bangles')">Bangles</button>
+                        <button class="side-menu-btn" onclick="showGoldCategory('necklace')">Necklace</button>
+                        <button class="side-menu-btn" onclick="showGoldCategory('chains')">Chains</button>
+                        <button class="side-menu-btn" onclick="showGoldCategory('oddiyaanam')">Oddiyaanam</button>
+                        <button class="side-menu-btn" onclick="showGoldCategory('bracelets')">Bracelets</button>
+                        <button class="side-menu-btn" onclick="showGoldCategory('haaram')">Haaram</button>
+                    </div>
+                    <div class="category-content">
+                        <div id="gold-earrings" class="gold-category active">
+                            <h3>Gold Earrings</h3>
+                            <div class="jewellery-grid">
+                                <div class="jewellery-item">
+                                    <img src="images/earring1.jpg" alt="Gold Earrings 1">
+                                    <h4>Traditional Gold Earrings</h4>
+                                    <p>₹15,000</p>
+                                    <button class="add-to-cart-btn" onclick="addToJewelleryCart('Traditional Gold Earrings', 15000, 'images/earring1.jpg')">Add to Cart</button>
+                                </div>
+                                <div class="jewellery-item">
+                                    <img src="images/earring2.jpg" alt="Gold Earrings 2">
+                                    <h4>Designer Gold Studs</h4>
+                                    <p>₹8,500</p>
+                                    <button class="add-to-cart-btn" onclick="addToJewelleryCart('Designer Gold Studs', 8500, 'images/earring2.jpg')">Add to Cart</button>
+                                </div>
+                                <div class="jewellery-item">
+                                    <img src="images/earring3.jpg" alt="Gold Earrings 3">
+                                    <h4>Antique Gold Drops</h4>
+                                    <p>₹22,000</p>
+                                    <button class="add-to-cart-btn" onclick="addToJewelleryCart('Antique Gold Drops', 22000, 'images/earring3.jpg')">Add to Cart</button>
+                                </div>
+                                <div class="jewellery-item">
+                                    <img src="images/earring4.jpg" alt="Gold Earrings 4">
+                                    <h4>Modern Gold Hoops</h4>
+                                    <p>₹12,750</p>
+                                    <button class="add-to-cart-btn" onclick="addToJewelleryCart('Modern Gold Hoops', 12750, 'images/earring4.jpg')">Add to Cart</button>
+                                </div>
+                                <div class="jewellery-item">
+                                    <img src="images/earring5.jpg" alt="Gold Earrings 5">
+                                    <h4>Classic Gold Chandbali</h4>
+                                    <p>₹18,200</p>
+                                    <button class="add-to-cart-btn" onclick="addToJewelleryCart('Classic Gold Chandbali', 18200, 'images/earring5.jpg')">Add to Cart</button>
+                                </div>
+                                <div class="jewellery-item">
+                                    <img src="images/earring6.jpg" alt="Gold Earrings 6">
+                                    <h4>Elegant Gold Jhumkas</h4>
+                                    <p>₹25,500</p>
+                                    <button class="add-to-cart-btn" onclick="addToJewelleryCart('Elegant Gold Jhumkas', 25500, 'images/earring6.jpg')">Add to Cart</button>
+                                </div>
+                                <div class="jewellery-item">
+                                    <img src="images/earring7.jpg" alt="Gold Earrings 7">
+                                    <h4>Royal Gold Danglers</h4>
+                                    <p>₹30,000</p>
+                                    <button class="add-to-cart-btn" onclick="addToJewelleryCart('Royal Gold Danglers', 30000, 'images/earring7.jpg')">Add to Cart</button>
+                                </div>
+                                <div class="jewellery-item">
+                                    <img src="images/earring8.jpg" alt="Gold Earrings 8">
+                                    <h4>Vintage Gold Clusters</h4>
+                                    <p>₹16,800</p>
+                                    <button class="add-to-cart-btn" onclick="addToJewelleryCart('Vintage Gold Clusters', 16800, 'images/earring8.jpg')">Add to Cart</button>
+                                </div>
+                                <div class="jewellery-item">
+                                    <img src="images/earring9.jpg" alt="Gold Earrings 9">
+                                    <h4>Bridal Gold Earrings</h4>
+                                    <p>₹35,000</p>
+                                    <button class="add-to-cart-btn" onclick="addToJewelleryCart('Bridal Gold Earrings', 35000, 'images/earring9.jpg')">Add to Cart</button>
+                                </div>
+                                <div class="jewellery-item">
+                                    <img src="images/earring10.jpg" alt="Gold Earrings 10">
+                                    <h4>Contemporary Gold Studs</h4>
+                                    <p>₹11,500</p>
+                                    <button class="add-to-cart-btn" onclick="addToJewelleryCart('Contemporary Gold Studs', 11500, 'images/earring10.jpg')">Add to Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="gold-ring" class="gold-category">
+                            <h3>Gold Rings</h3>
+                            <div class="jewellery-grid">
+                                <div class="jewellery-item">
+                                    <img src="images/ring1.jpg" alt="Gold Ring 1">
+                                    <h4>Classic Gold Band</h4>
+                                    <p>₹12,000</p>
+                                    <button class="add-to-cart-btn" onclick="addToJewelleryCart('Classic Gold Band', 12000, 'images/ring1.jpg')">Add to Cart</button>
+                                </div>
+                                <div class="jewellery-item">
+                                    <img src="images/ring2.jpg" alt="Gold Ring 2">
+                                    <h4>Diamond Gold Ring</h4>
+                                    <p>₹45,000</p>
+                                    <button class="add-to-cart-btn" onclick="addToJewelleryCart('Diamond Gold Ring', 45000, 'images/ring2.jpg')">Add to Cart</button>
+                                </div>
+                                <div class="jewellery-item">
+                                    <img src="images/ring3.jpg" alt="Gold Ring 3">
+                                    <h4>Antique Gold Ring</h4>
+                                    <p>₹28,500</p>
+                                    <button class="add-to-cart-btn" onclick="addToJewelleryCart('Antique Gold Ring', 28500, 'images/ring3.jpg')">Add to Cart</button>
+                                </div>
+                                <div class="jewellery-item">
+                                    <img src="images/ring4.jpg" alt="Gold Ring 4">
+                                    <h4>Designer Gold Ring</h4>
+                                    <p>₹35,000</p>
+                                    <button class="add-to-cart-btn" onclick="addToJewelleryCart('Designer Gold Ring', 35000, 'images/ring4.jpg')">Add to Cart</button>
+                                </div>
+                                <div class="jewellery-item">
+                                    <img src="images/ring5.jpg" alt="Gold Ring 5">
+                                    <h4>Bridal Gold Ring</h4>
+                                    <p>₹55,000</p>
+                                    <button class="add-to-cart-btn" onclick="addToJewelleryCart('Bridal Gold Ring', 55000, 'images/ring5.jpg')">Add to Cart</button>
+                                </div>
+                                <div class="jewellery-item">
+                                    <img src="images/ring6.jpg" alt="Gold Ring 6">
+                                    <h4>Modern Gold Ring</h4>
+                                    <p>₹18,000</p>
+                                    <button class="add-to-cart-btn" onclick="addToJewelleryCart('Modern Gold Ring', 18000, 'images/ring6.jpg')">Add to Cart</button>
+                                </div>
+                                <div class="jewellery-item">
+                                    <img src="images/ring7.jpg" alt="Gold Ring 7">
+                                    <h4>Traditional Gold Ring</h4>
+                                    <p>₹22,000</p>
+                                    <button class="add-to-cart-btn" onclick="addToJewelleryCart('Traditional Gold Ring', 22000, 'images/ring7.jpg')">Add to Cart</button>
+                                </div>
+                                <div class="jewellery-item">
+                                    <img src="images/ring8.jpg" alt="Gold Ring 8">
+                                    <h4>Elegant Gold Ring</h4>
+                                    <p>₹32,000</p>
+                                    <button class="add-to-cart-btn" onclick="addToJewelleryCart('Elegant Gold Ring', 32000, 'images/ring8.jpg')">Add to Cart</button>
+                                </div>
+                                <div class="jewellery-item">
+                                    <img src="images/ring9.jpg" alt="Gold Ring 9">
+                                    <h4>Royal Gold Ring</h4>
+                                    <p>₹48,000</p>
+                                    <button class="add-to-cart-btn" onclick="addToJewelleryCart('Royal Gold Ring', 48000, 'images/ring9.jpg')">Add to Cart</button>
+                                </div>
+                                <div class="jewellery-item">
+                                    <img src="images/ring10.jpg" alt="Gold Ring 10">
+                                    <h4>Contemporary Gold Ring</h4>
+                                    <p>₹25,000</p>
+                                    <button class="add-to-cart-btn" onclick="addToJewelleryCart('Contemporary Gold Ring', 25000, 'images/ring10.jpg')">Add to Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="gold-bangles" class="gold-category">
+                            <h3>Gold Bangles</h3>
+                            <div class="jewellery-grid">
+                                <div class="jewellery-item">
+                                    <img src="images/bangle1.jpg" alt="Gold Bangle 1">
+                                    <h4>Traditional Gold Bangle</h4>
+                                    <p>₹25,000</p>
+                                    <button class="add-to-cart-btn" onclick="addToJewelleryCart('Traditional Gold Bangle', 25000, 'images/bangle1.jpg')">Add to Cart</button>
+                                </div>
+                                <div class="jewellery-item">
+                                    <img src="images/bangle2.jpg" alt="Gold Bangle 2">
+                                    <h4>Designer Gold Bangle</h4>
+                                    <p>₹35,000</p>
+                                    <button class="add-to-cart-btn" onclick="addToJewelleryCart('Designer Gold Bangle', 35000, 'images/bangle2.jpg')">Add to Cart</button>
+                                </div>
+                                <div class="jewellery-item">
+                                    <img src="images/bangle3.jpg" alt="Gold Bangle 3">
+                                    <h4>Antique Gold Bangle</h4>
+                                    <p>₹42,000</p>
+                                    <button class="add-to-cart-btn" onclick="addToJewelleryCart('Antique Gold Bangle', 42000, 'images/bangle3.jpg')">Add to Cart</button>
+                                </div>
+                                <div class="jewellery-item">
+                                    <img src="images/bangle4.jpg" alt="Gold Bangle 4">
+                                    <h4>Bridal Gold Bangle</h4>
+                                    <p>₹65,000</p>
+                                    <button class="add-to-cart-btn" onclick="addToJewelleryCart('Bridal Gold Bangle', 65000, 'images/bangle4.jpg')">Add to Cart</button>
+                                </div>
+                                <div class="jewellery-item">
+                                    <img src="images/bangle5.jpg" alt="Gold Bangle 5">
+                                    <h4>Modern Gold Bangle</h4>
+                                    <p>₹28,000</p>
+                                    <button class="add-to-cart-btn" onclick="addToJewelleryCart('Modern Gold Bangle', 28000, 'images/bangle5.jpg')">Add to Cart</button>
+                                </div>
+                                <div class="jewellery-item">
+                                    <img src="images/bangle6.jpg" alt="Gold Bangle 6">
+                                    <h4>Elegant Gold Bangle</h4>
+                                    <p>₹38,000</p>
+                                    <button class="add-to-cart-btn" onclick="addToJewelleryCart('Elegant Gold Bangle', 38000, 'images/bangle6.jpg')">Add to Cart</button>
+                                </div>
+                                <div class="jewellery-item">
+                                    <img src="images/bangle7.jpg" alt="Gold Bangle 7">
+                                    <h4>Royal Gold Bangle</h4>
+                                    <p>₹55,000</p>
+                                    <button class="add-to-cart-btn" onclick="addToJewelleryCart('Royal Gold Bangle', 55000, 'images/bangle7.jpg')">Add to Cart</button>
+                                </div>
+                                <div class="jewellery-item">
+                                    <img src="images/bangle8.jpg" alt="Gold Bangle 8">
+                                    <h4>Classic Gold Bangle</h4>
+                                    <p>₹32,000</p>
+                                    <button class="add-to-cart-btn" onclick="addToJewelleryCart('Classic Gold Bangle', 32000, 'images/bangle8.jpg')">Add to Cart</button>
+                                </div>
+                                <div class="jewellery-item">
+                                    <img src="images/bangle9.jpg" alt="Gold Bangle 9">
+                                    <h4>Contemporary Gold Bangle</h4>
+                                    <p>₹45,000</p>
+                                    <button class="add-to-cart-btn" onclick="addToJewelleryCart('Contemporary Gold Bangle', 45000, 'images/bangle9.jpg')">Add to Cart</button>
+                                </div>
+                                <div class="jewellery-item">
+                                    <img src="images/bangle10.jpg" alt="Gold Bangle 10">
+                                    <h4>Vintage Gold Bangle</h4>
+                                    <p>₹48,000</p>
+                                    <button class="add-to-cart-btn" onclick="addToJewelleryCart('Vintage Gold Bangle', 48000, 'images/bangle10.jpg')">Add to Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="gold-necklace" class="gold-category">
+                            <h3>Gold Necklaces</h3>
+                            <div class="jewellery-grid">
+                                <div class="jewellery-item">
+                                    <img src="images/necklace1.jpg" alt="Gold Necklace 1">
+                                    <h4>Traditional Gold Necklace</h4>
+                                    <p>₹85,000</p>
+                                    <button class="add-to-cart-btn" onclick="addToJewelleryCart('Traditional Gold Necklace', 85000, 'images/necklace1.jpg')">Add to Cart</button>
+                                </div>
+                                <div class="jewellery-item">
+                                    <img src="images/necklace2.jpg" alt="Gold Necklace 2">
+                                    <h4>Designer Gold Necklace</h4>
+                                    <p>₹125,000</p>
+                                    <button class="add-to-cart-btn" onclick="addToJewelleryCart('Designer Gold Necklace', 125000, 'images/necklace2.jpg')">Add to Cart</button>
+                                </div>
+                                <div class="jewellery-item">
+                                    <img src="images/necklace3.jpg" alt="Gold Necklace 3">
+                                    <h4>Bridal Gold Necklace</h4>
+                                    <p>₹185,000</p>
+                                    <button class="add-to-cart-btn" onclick="addToJewelleryCart('Bridal Gold Necklace', 185000, 'images/necklace3.jpg')">Add to Cart</button>
+                                </div>
+                                <div class="jewellery-item">
+                                    <img src="images/necklace4.jpg" alt="Gold Necklace 4">
+                                    <h4>Antique Gold Necklace</h4>
+                                    <p>₹95,000</p>
+                                    <button class="add-to-cart-btn" onclick="addToJewelleryCart('Antique Gold Necklace', 95000, 'images/necklace4.jpg')">Add to Cart</button>
+                                </div>
+                                <div class="jewellery-item">
+                                    <img src="images/necklace5.jpg" alt="Gold Necklace 5">
+                                    <h4>Modern Gold Necklace</h4>
+                                    <p>₹75,000</p>
+                                    <button class="add-to-cart-btn" onclick="addToJewelleryCart('Modern Gold Necklace', 75000, 'images/necklace5.jpg')">Add to Cart</button>
+                                </div>
+                                <div class="jewellery-item">
+                                    <img src="images/necklace6.jpg" alt="Gold Necklace 6">
+                                    <h4>Elegant Gold Necklace</h4>
+                                    <p>₹110,000</p>
+                                    <button class="add-to-cart-btn" onclick="addToJewelleryCart('Elegant Gold Necklace', 110000, 'images/necklace6.jpg')">Add to Cart</button>
+                                </div>
+                                <div class="jewellery-item">
+                                    <img src="images/necklace7.jpg" alt="Gold Necklace 7">
+                                    <h4>Royal Gold Necklace</h4>
+                                    <p>₹165,000</p>
+                                    <button class="add-to-cart-btn" onclick="addToJewelleryCart('Royal Gold Necklace', 165000, 'images/necklace7.jpg')">Add to Cart</button>
+                                </div>
+                                <div class="jewellery-item">
+                                    <img src="images/necklace8.jpg" alt="Gold Necklace 8">
+                                    <h4>Classic Gold Necklace</h4>
+                                    <p>₹88,000</p>
+                                    <button class="add-to-cart-btn" onclick="addToJewelleryCart('Classic Gold Necklace', 88000, 'images/necklace8.jpg')">Add to Cart</button>
+                                </div>
+                                <div class="jewellery-item">
+                                    <img src="images/necklace9.jpg" alt="Gold Necklace 9">
+                                    <h4>Contemporary Gold Necklace</h4>
+                                    <p>₹135,000</p>
+                                    <button class="add-to-cart-btn" onclick="addToJewelleryCart('Contemporary Gold Necklace', 135000, 'images/necklace9.jpg')">Add to Cart</button>
+                                </div>
+                                <div class="jewellery-item">
+                                    <img src="images/necklace10.jpg" alt="Gold Necklace 10">
+                                    <h4>Vintage Gold Necklace</h4>
+                                    <p>₹145,000</p>
+                                    <button class="add-to-cart-btn" onclick="addToJewelleryCart('Vintage Gold Necklace', 145000, 'images/necklace10.jpg')">Add to Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="gold-chains" class="gold-category">
+                            <h3>Gold Chains</h3>
+                            <div class="jewellery-grid">
+                                <div class="jewellery-item">
+                                    <img src="images/chain1.jpg" alt="Gold Chain 1">
+                                    <h4>Traditional Gold Chain</h4>
+                                    <p>₹35,000</p>
+                                    <button class="add-to-cart-btn" onclick="addToJewelleryCart('Traditional Gold Chain', 35000, 'images/chain1.jpg')">Add to Cart</button>
+                                </div>
+                                <div class="jewellery-item">
+                                    <img src="images/chain2.jpg" alt="Gold Chain 2">
+                                    <h4>Designer Gold Chain</h4>
+                                    <p>₹45,000</p>
+                                    <button class="add-to-cart-btn" onclick="addToJewelleryCart('Designer Gold Chain', 45000, 'images/chain2.jpg')">Add to Cart</button>
+                                </div>
+                                <div class="jewellery-item">
+                                    <img src="images/chain3.jpg" alt="Gold Chain 3">
+                                    <h4>Modern Gold Chain</h4>
+                                    <p>₹28,000</p>
+                                    <button class="add-to-cart-btn" onclick="addToJewelleryCart('Modern Gold Chain', 28000, 'images/chain3.jpg')">Add to Cart</button>
+                                </div>
+                                <div class="jewellery-item">
+                                    <img src="images/chain4.jpg" alt="Gold Chain 4">
+                                    <h4>Elegant Gold Chain</h4>
+                                    <p>₹52,000</p>
+                                    <button class="add-to-cart-btn" onclick="addToJewelleryCart('Elegant Gold Chain', 52000, 'images/chain4.jpg')">Add to Cart</button>
+                                </div>
+                                <div class="jewellery-item">
+                                    <img src="images/chain5.jpg" alt="Gold Chain 5">
+                                    <h4>Classic Gold Chain</h4>
+                                    <p>₹38,000</p>
+                                    <button class="add-to-cart-btn" onclick="addToJewelleryCart('Classic Gold Chain', 38000, 'images/chain5.jpg')">Add to Cart</button>
+                                </div>
+                                <div class="jewellery-item">
+                                    <img src="images/chain6.jpg" alt="Gold Chain 6">
+                                    <h4>Royal Gold Chain</h4>
+                                    <p>₹65,000</p>
+                                    <button class="add-to-cart-btn" onclick="addToJewelleryCart('Royal Gold Chain', 65000, 'images/chain6.jpg')">Add to Cart</button>
+                                </div>
+                                <div class="jewellery-item">
+                                    <img src="images/chain7.jpg" alt="Gold Chain 7">
+                                    <h4>Antique Gold Chain</h4>
+                                    <p>₹42,000</p>
+                                    <button class="add-to-cart-btn" onclick="addToJewelleryCart('Antique Gold Chain', 42000, 'images/chain7.jpg')">Add to Cart</button>
+                                </div>
+                                <div class="jewellery-item">
+                                    <img src="images/chain8.jpg" alt="Gold Chain 8">
+                                    <h4>Contemporary Gold Chain</h4>
+                                    <p>₹48,000</p>
+                                    <button class="add-to-cart-btn" onclick="addToJewelleryCart('Contemporary Gold Chain', 48000, 'images/chain8.jpg')">Add to Cart</button>
+                                </div>
+                                <div class="jewellery-item">
+                                    <img src="images/chain9.jpg" alt="Gold Chain 9">
+                                    <h4>Bridal Gold Chain</h4>
+                                    <p>₹75,000</p>
+                                    <button class="add-to-cart-btn" onclick="addToJewelleryCart('Bridal Gold Chain', 75000, 'images/chain9.jpg')">Add to Cart</button>
+                                </div>
+                                <div class="jewellery-item">
+                                    <img src="images/chain10.jpg" alt="Gold Chain 10">
+                                    <h4>Vintage Gold Chain</h4>
+                                    <p>₹55,000</p>
+                                    <button class="add-to-cart-btn" onclick="addToJewelleryCart('Vintage Gold Chain', 55000, 'images/chain10.jpg')">Add to Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="gold-oddiyaanam" class="gold-category">
+                            <h3>Gold Oddiyaanam</h3>
+                            <div class="jewellery-grid">
+                                <div class="jewellery-item">
+                                    <img src="images/oddiyaanam1.jpg" alt="Gold Oddiyaanam 1">
+                                    <h4>Traditional Gold Oddiyaanam</h4>
+                                    <p>₹125,000</p>
+                                    <button class="add-to-cart-btn" onclick="addToJewelleryCart('Traditional Gold Oddiyaanam', 125000, 'images/oddiyaanam1.jpg')">Add to Cart</button>
+                                </div>
+                                <div class="jewellery-item">
+                                    <img src="images/oddiyaanam2.jpg" alt="Gold Oddiyaanam 2">
+                                    <h4>Designer Gold Oddiyaanam</h4>
+                                    <p>₹185,000</p>
+                                    <button class="add-to-cart-btn" onclick="addToJewelleryCart('Designer Gold Oddiyaanam', 185000, 'images/oddiyaanam2.jpg')">Add to Cart</button>
+                                </div>
+                                <div class="jewellery-item">
+                                    <img src="images/oddiyaanam3.jpg" alt="Gold Oddiyaanam 3">
+                                    <h4>Bridal Gold Oddiyaanam</h4>
+                                    <p>₹225,000</p>
+                                    <button class="add-to-cart-btn" onclick="addToJewelleryCart('Bridal Gold Oddiyaanam', 225000, 'images/oddiyaanam3.jpg')">Add to Cart</button>
+                                </div>
+                                <div class="jewellery-item">
+                                    <img src="images/oddiyaanam4.jpg" alt="Gold Oddiyaanam 4">
+                                    <h4>Antique Gold Oddiyaanam</h4>
+                                    <p>₹165,000</p>
+                                    <button class="add-to-cart-btn" onclick="addToJewelleryCart('Antique Gold Oddiyaanam', 165000, 'images/oddiyaanam4.jpg')">Add to Cart</button>
+                                </div>
+                                <div class="jewellery-item">
+                                    <img src="images/oddiyaanam5.jpg" alt="Gold Oddiyaanam 5">
+                                    <h4>Modern Gold Oddiyaanam</h4>
+                                    <p>₹145,000</p>
+                                    <button class="add-to-cart-btn" onclick="addToJewelleryCart('Modern Gold Oddiyaanam', 145000, 'images/oddiyaanam5.jpg')">Add to Cart</button>
+                                </div>
+                                <div class="jewellery-item">
+                                    <img src="images/oddiyaanam6.jpg" alt="Gold Oddiyaanam 6">
+                                    <h4>Elegant Gold Oddiyaanam</h4>
+                                    <p>₹195,000</p>
+                                    <button class="add-to-cart-btn" onclick="addToJewelleryCart('Elegant Gold Oddiyaanam', 195000, 'images/oddiyaanam6.jpg')">Add to Cart</button>
+                                </div>
+                                <div class="jewellery-item">
+                                    <img src="images/oddiyaanam7.jpg" alt="Gold Oddiyaanam 7">
+                                    <h4>Royal Gold Oddiyaanam</h4>
+                                    <p>₹285,000</p>
+                                    <button class="add-to-cart-btn" onclick="addToJewelleryCart('Royal Gold Oddiyaanam', 285000, 'images/oddiyaanam7.jpg')">Add to Cart</button>
+                                </div>
+                                <div class="jewellery-item">
+                                    <img src="images/oddiyaanam8.jpg" alt="Gold Oddiyaanam 8">
+                                    <h4>Classic Gold Oddiyaanam</h4>
+                                    <p>₹155,000</p>
+                                    <button class="add-to-cart-btn" onclick="addToJewelleryCart('Classic Gold Oddiyaanam', 155000, 'images/oddiyaanam8.jpg')">Add to Cart</button>
+                                </div>
+                                <div class="jewellery-item">
+                                    <img src="images/oddiyaanam9.jpg" alt="Gold Oddiyaanam 9">
+                                    <h4>Contemporary Gold Oddiyaanam</h4>
+                                    <p>₹205,000</p>
+                                    <button class="add-to-cart-btn" onclick="addToJewelleryCart('Contemporary Gold Oddiyaanam', 205000, 'images/oddiyaanam9.jpg')">Add to Cart</button>
+                                </div>
+                                <div class="jewellery-item">
+                                    <img src="images/oddiyaanam10.jpg" alt="Gold Oddiyaanam 10">
+                                    <h4>Vintage Gold Oddiyaanam</h4>
+                                    <p>₹175,000</p>
+                                    <button class="add-to-cart-btn" onclick="addToJewelleryCart('Vintage Gold Oddiyaanam', 175000, 'images/oddiyaanam10.jpg')">Add to Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="gold-bracelets" class="gold-category">
+                            <h3>Gold Bracelets</h3>
+                            <div class="jewellery-grid">
+                                <div class="jewellery-item">
+                                    <img src="images/bracelet1.jpg" alt="Gold Bracelet 1">
+                                    <h4>Traditional Gold Bracelet</h4>
+                                    <p>₹22,000</p>
+                                    <button class="add-to-cart-btn" onclick="addToJewelleryCart('Traditional Gold Bracelet', 22000, 'images/bracelet1.jpg')">Add to Cart</button>
+                                </div>
+                                <div class="jewellery-item">
+                                    <img src="images/bracelet2.jpg" alt="Gold Bracelet 2">
+                                    <h4>Designer Gold Bracelet</h4>
+                                    <p>₹35,000</p>
+                                    <button class="add-to-cart-btn" onclick="addToJewelleryCart('Designer Gold Bracelet', 35000, 'images/bracelet2.jpg')">Add to Cart</button>
+                                </div>
+                                <div class="jewellery-item">
+                                    <img src="images/bracelet3.jpg" alt="Gold Bracelet 3">
+                                    <h4>Modern Gold Bracelet</h4>
+                                    <p>₹28,000</p>
+                                    <button class="add-to-cart-btn" onclick="addToJewelleryCart('Modern Gold Bracelet', 28000, 'images/bracelet3.jpg')">Add to Cart</button>
+                                </div>
+                                <div class="jewellery-item">
+                                    <img src="images/bracelet4.jpg" alt="Gold Bracelet 4">
+                                    <h4>Elegant Gold Bracelet</h4>
+                                    <p>₹42,000</p>
+                                    <button class="add-to-cart-btn" onclick="addToJewelleryCart('Elegant Gold Bracelet', 42000, 'images/bracelet4.jpg')">Add to Cart</button>
+                                </div>
+                                <div class="jewellery-item">
+                                    <img src="images/bracelet5.jpg" alt="Gold Bracelet 5">
+                                    <h4>Classic Gold Bracelet</h4>
+                                    <p>₹25,000</p>
+                                    <button class="add-to-cart-btn" onclick="addToJewelleryCart('Classic Gold Bracelet', 25000, 'images/bracelet5.jpg')">Add to Cart</button>
+                                </div>
+                                <div class="jewellery-item">
+                                    <img src="images/bracelet6.jpg" alt="Gold Bracelet 6">
+                                    <h4>Royal Gold Bracelet</h4>
+                                    <p>₹55,000</p>
+                                    <button class="add-to-cart-btn" onclick="addToJewelleryCart('Royal Gold Bracelet', 55000, 'images/bracelet6.jpg')">Add to Cart</button>
+                                </div>
+                                <div class="jewellery-item">
+                                    <img src="images/bracelet7.jpg" alt="Gold Bracelet 7">
+                                    <h4>Antique Gold Bracelet</h4>
+                                    <p>₹38,000</p>
+                                    <button class="add-to-cart-btn" onclick="addToJewelleryCart('Antique Gold Bracelet', 38000, 'images/bracelet7.jpg')">Add to Cart</button>
+                                </div>
+                                <div class="jewellery-item">
+                                    <img src="images/bracelet8.jpg" alt="Gold Bracelet 8">
+                                    <h4>Contemporary Gold Bracelet</h4>
+                                    <p>₹32,000</p>
+                                    <button class="add-to-cart-btn" onclick="addToJewelleryCart('Contemporary Gold Bracelet', 32000, 'images/bracelet8.jpg')">Add to Cart</button>
+                                </div>
+                                <div class="jewellery-item">
+                                    <img src="images/bracelet9.jpg" alt="Gold Bracelet 9">
+                                    <h4>Bridal Gold Bracelet</h4>
+                                    <p>₹48,000</p>
+                                    <button class="add-to-cart-btn" onclick="addToJewelleryCart('Bridal Gold Bracelet', 48000, 'images/bracelet9.jpg')">Add to Cart</button>
+                                </div>
+                                <div class="jewellery-item">
+                                    <img src="images/bracelet10.jpg" alt="Gold Bracelet 10">
+                                    <h4>Vintage Gold Bracelet</h4>
+                                    <p>₹45,000</p>
+                                    <button class="add-to-cart-btn" onclick="addToJewelleryCart('Vintage Gold Bracelet', 45000, 'images/bracelet10.jpg')">Add to Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="gold-haaram" class="gold-category">
+                            <h3>Gold Haaram</h3>
+                            <div class="jewellery-grid">
+                                <div class="jewellery-item">
+                                    <img src="images/haaram1.jpg" alt="Gold Haaram 1">
+                                    <h4>Traditional Gold Haaram</h4>
+                                    <p>₹185,000</p>
+                                    <button class="add-to-cart-btn" onclick="addToJewelleryCart('Traditional Gold Haaram', 185000, 'images/haaram1.jpg')">Add to Cart</button>
+                                </div>
+                                <div class="jewellery-item">
+                                    <img src="images/haaram2.jpg" alt="Gold Haaram 2">
+                                    <h4>Designer Gold Haaram</h4>
+                                    <p>₹285,000</p>
+                                    <button class="add-to-cart-btn" onclick="addToJewelleryCart('Designer Gold Haaram', 285000, 'images/haaram2.jpg')">Add to Cart</button>
+                                </div>
+                                <div class="jewellery-item">
+                                    <img src="images/haaram3.jpg" alt="Gold Haaram 3">
+                                    <h4>Bridal Gold Haaram</h4>
+                                    <p>₹385,000</p>
+                                    <button class="add-to-cart-btn" onclick="addToJewelleryCart('Bridal Gold Haaram', 385000, 'images/haaram3.jpg')">Add to Cart</button>
+                                </div>
+                                <div class="jewellery-item">
+                                    <img src="images/haaram4.jpg" alt="Gold Haaram 4">
+                                    <h4>Antique Gold Haaram</h4>
+                                    <p>₹225,000</p>
+                                    <button class="add-to-cart-btn" onclick="addToJewelleryCart('Antique Gold Haaram', 225000, 'images/haaram4.jpg')">Add to Cart</button>
+                                </div>
+                                <div class="jewellery-item">
+                                    <img src="images/haaram5.jpg" alt="Gold Haaram 5">
+                                    <h4>Modern Gold Haaram</h4>
+                                    <p>₹165,000</p>
+                                    <button class="add-to-cart-btn" onclick="addToJewelleryCart('Modern Gold Haaram', 165000, 'images/haaram5.jpg')">Add to Cart</button>
+                                </div>
+                                <div class="jewellery-item">
+                                    <img src="images/haaram6.jpg" alt="Gold Haaram 6">
+                                    <h4>Elegant Gold Haaram</h4>
+                                    <p>₹245,000</p>
+                                    <button class="add-to-cart-btn" onclick="addToJewelleryCart('Elegant Gold Haaram', 245000, 'images/haaram6.jpg')">Add to Cart</button>
+                                </div>
+                                <div class="jewellery-item">
+                                    <img src="images/haaram7.jpg" alt="Gold Haaram 7">
+                                    <h4>Royal Gold Haaram</h4>
+                                    <p>₹485,000</p>
+                                    <button class="add-to-cart-btn" onclick="addToJewelleryCart('Royal Gold Haaram', 485000, 'images/haaram7.jpg')">Add to Cart</button>
+                                </div>
+                                <div class="jewellery-item">
+                                    <img src="images/haaram8.jpg" alt="Gold Haaram 8">
+                                    <h4>Classic Gold Haaram</h4>
+                                    <p>₹195,000</p>
+                                    <button class="add-to-cart-btn" onclick="addToJewelleryCart('Classic Gold Haaram', 195000, 'images/haaram8.jpg')">Add to Cart</button>
+                                </div>
+                                <div class="jewellery-item">
+                                    <img src="images/haaram9.jpg" alt="Gold Haaram 9">
+                                    <h4>Contemporary Gold Haaram</h4>
+                                    <p>₹325,000</p>
+                                    <button class="add-to-cart-btn" onclick="addToJewelleryCart('Contemporary Gold Haaram', 325000, 'images/haaram9.jpg')">Add to Cart</button>
+                                </div>
+                                <div class="jewellery-item">
+                                    <img src="images/haaram10.jpg" alt="Gold Haaram 10">
+                                    <h4>Vintage Gold Haaram</h4>
+                                    <p>₹265,000</p>
+                                    <button class="add-to-cart-btn" onclick="addToJewelleryCart('Vintage Gold Haaram', 265000, 'images/haaram10.jpg')">Add to Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="diamond" class="sub-tab-content">
+                <h2>Diamond</h2>
+                <div class="jewellery-grid">
+                    <div class="jewellery-item">
+                        <img src="images/diamond-earring1.jpg" alt="Diamond Earrings 1">
+                        <h4>Classic Diamond Studs</h4>
+                        <p>₹45,000</p>
+                        <button class="add-to-cart-btn" onclick="addToJewelleryCart('Classic Diamond Studs', 45000, 'images/diamond-earring1.jpg')">Add to Cart</button>
+                    </div>
+                    <div class="jewellery-item">
+                        <img src="images/diamond-earring2.jpg" alt="Diamond Earrings 2">
+                        <h4>Designer Diamond Drops</h4>
+                        <p>₹85,000</p>
+                        <button class="add-to-cart-btn" onclick="addToJewelleryCart('Designer Diamond Drops', 85000, 'images/diamond-earring2.jpg')">Add to Cart</button>
+                    </div>
+                    <div class="jewellery-item">
+                        <img src="images/diamond-earring3.jpg" alt="Diamond Earrings 3">
+                        <h4>Elegant Diamond Hoops</h4>
+                        <p>₹65,000</p>
+                        <button class="add-to-cart-btn" onclick="addToJewelleryCart('Elegant Diamond Hoops', 65000, 'images/diamond-earring3.jpg')">Add to Cart</button>
+                    </div>
+                    <div class="jewellery-item">
+                        <img src="images/diamond-earring4.jpg" alt="Diamond Earrings 4">
+                        <h4>Royal Diamond Chandeliers</h4>
+                        <p>₹125,000</p>
+                        <button class="add-to-cart-btn" onclick="addToJewelleryCart('Royal Diamond Chandeliers', 125000, 'images/diamond-earring4.jpg')">Add to Cart</button>
+                    </div>
+                    <div class="jewellery-item">
+                        <img src="images/diamond-earring5.jpg" alt="Diamond Earrings 5">
+                        <h4>Modern Diamond Studs</h4>
+                        <p>₹55,000</p>
+                        <button class="add-to-cart-btn" onclick="addToJewelleryCart('Modern Diamond Studs', 55000, 'images/diamond-earring5.jpg')">Add to Cart</button>
+                    </div>
+                    <div class="jewellery-item">
+                        <img src="images/diamond-earring6.jpg" alt="Diamond Earrings 6">
+                        <h4>Bridal Diamond Earrings</h4>
+                        <p>₹145,000</p>
+                        <button class="add-to-cart-btn" onclick="addToJewelleryCart('Bridal Diamond Earrings', 145000, 'images/diamond-earring6.jpg')">Add to Cart</button>
+                    </div>
+                    <div class="jewellery-item">
+                        <img src="images/diamond-earring7.jpg" alt="Diamond Earrings 7">
+                        <h4>Vintage Diamond Drops</h4>
+                        <p>₹75,000</p>
+                        <button class="add-to-cart-btn" onclick="addToJewelleryCart('Vintage Diamond Drops', 75000, 'images/diamond-earring7.jpg')">Add to Cart</button>
+                    </div>
+                    <div class="jewellery-item">
+                        <img src="images/diamond-earring8.jpg" alt="Diamond Earrings 8">
+                        <h4>Contemporary Diamond Studs</h4>
+                        <p>₹95,000</p>
+                        <button class="add-to-cart-btn" onclick="addToJewelleryCart('Contemporary Diamond Studs', 95000, 'images/diamond-earring8.jpg')">Add to Cart</button>
+                    </div>
+                    <div class="jewellery-item">
+                        <img src="images/diamond-earring9.jpg" alt="Diamond Earrings 9">
+                        <h4>Luxury Diamond Danglers</h4>
+                        <p>₹165,000</p>
+                        <button class="add-to-cart-btn" onclick="addToJewelleryCart('Luxury Diamond Danglers', 165000, 'images/diamond-earring9.jpg')">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="silver" class="sub-tab-content">
+                <h2>Silver</h2>
+                <div class="jewellery-grid">
+                    <div class="jewellery-item">
+                        <img src="images/silver1.jpg" alt="Silver 1">
+                        <h4>Classic Silver Earrings</h4>
+                        <p>₹3,500</p>
+                        <button class="add-to-cart-btn" onclick="addToJewelleryCart('Classic Silver Earrings', 3500, 'images/silver1.jpg')">Add to Cart</button>
+                    </div>
+                    <div class="jewellery-item">
+                        <img src="images/silver2.jpg" alt="Silver 2">
+                        <h4>Designer Silver Ring</h4>
+                        <p>₹2,800</p>
+                        <button class="add-to-cart-btn" onclick="addToJewelleryCart('Designer Silver Ring', 2800, 'images/silver2.jpg')">Add to Cart</button>
+                    </div>
+                    <div class="jewellery-item">
+                        <img src="images/silver3.jpg" alt="Silver 3">
+                        <h4>Elegant Silver Bangle</h4>
+                        <p>₹4,200</p>
+                        <button class="add-to-cart-btn" onclick="addToJewelleryCart('Elegant Silver Bangle', 4200, 'images/silver3.jpg')">Add to Cart</button>
+                    </div>
+                    <div class="jewellery-item">
+                        <img src="images/silver4.jpg" alt="Silver 4">
+                        <h4>Modern Silver Necklace</h4>
+                        <p>₹6,500</p>
+                        <button class="add-to-cart-btn" onclick="addToJewelleryCart('Modern Silver Necklace', 6500, 'images/silver4.jpg')">Add to Cart</button>
+                    </div>
+                    <div class="jewellery-item">
+                        <img src="images/silver5.jpg" alt="Silver 5">
+                        <h4>Traditional Silver Anklet</h4>
+                        <p>₹5,000</p>
+                        <button class="add-to-cart-btn" onclick="addToJewelleryCart('Traditional Silver Anklet', 5000, 'images/silver5.jpg')">Add to Cart</button>
+                    </div>
+                    <div class="jewellery-item">
+                        <img src="images/silver6.jpg" alt="Silver 6">
+                        <h4>Antique Silver Pendant</h4>
+                        <p>₹3,800</p>
+                        <button class="add-to-cart-btn" onclick="addToJewelleryCart('Antique Silver Pendant', 3800, 'images/silver6.jpg')">Add to Cart</button>
+                    </div>
+                    <div class="jewellery-item">
+                        <img src="images/silver7.jpg" alt="Silver 7">
+                        <h4>Contemporary Silver Bracelet</h4>
+                        <p>₹4,500</p>
+                        <button class="add-to-cart-btn" onclick="addToJewelleryCart('Contemporary Silver Bracelet', 4500, 'images/silver7.jpg')">Add to Cart</button>
+                    </div>
+                    <div class="jewellery-item">
+                        <img src="images/silver8.jpg" alt="Silver 8">
+                        <h4>Royal Silver Chain</h4>
+                        <p>₹7,200</p>
+                        <button class="add-to-cart-btn" onclick="addToJewelleryCart('Royal Silver Chain', 7200, 'images/silver8.jpg')">Add to Cart</button>
+                    </div>
+                    <div class="jewellery-item">
+                        <img src="images/silver9.jpg" alt="Silver 9">
+                        <h4>Vintage Silver Brooch</h4>
+                        <p>₹2,500</p>
+                        <button class="add-to-cart-btn" onclick="addToJewelleryCart('Vintage Silver Brooch', 2500, 'images/silver9.jpg')">Add to Cart</button>
+                    </div>
+                    <div class="jewellery-item">
+                        <img src="images/silver10.jpg" alt="Silver 10">
+                        <h4>Stylish Silver Hoops</h4>
+                        <p>₹3,200</p>
+                        <button class="add-to-cart-btn" onclick="addToJewelleryCart('Stylish Silver Hoops', 3200, 'images/silver10.jpg')">Add to Cart</button>
+                    </div>
+                    <div class="jewellery-item">
+                        <img src="images/silver11.jpg" alt="Silver 11">
+                        <h4>Bridal Silver Set</h4>
+                        <p>₹12,000</p>
+                        <button class="add-to-cart-btn" onclick="addToJewelleryCart('Bridal Silver Set', 12000, 'images/silver11.jpg')">Add to Cart</button>
+                    </div>
+                    <div class="jewellery-item">
+                        <img src="images/silver12.jpg" alt="Silver 12">
+                        <h4>Minimalist Silver Ring</h4>
+                        <p>₹1,800</p>
+                        <button class="add-to-cart-btn" onclick="addToJewelleryCart('Minimalist Silver Ring', 1800, 'images/silver12.jpg')">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="branches" class="sub-tab-content">
+                <h2>Cart</h2>
+                <div id="jewelleryCartItems">
+                    <!-- Cart items will be displayed here -->
+                </div>
+                <div class="cart-total">
+                    <h3>Total: ₹<span id="jewelleryCartTotal">0</span></h3>
+                    <button class="checkout-btn" onclick="showJewelleryCheckout()">Checkout</button>
+                    <button class="clear-cart-btn" onclick="clearJewelleryCart()">Clear Cart</button>
+                </div>
+            </div>
+
+            <div id="jewelleryCheckout" class="sub-tab-content">
+                <h2>Checkout</h2>
+                <div class="checkout-form">
+                    <div class="form-group">
+                        <label for="jewelleryDeliveryAddress">Your delivery address:</label>
+                        <textarea id="jewelleryDeliveryAddress" placeholder="Enter your delivery address" rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="jewelleryPaymentType">Payment Type:</label>
+                        <select id="jewelleryPaymentType" onchange="toggleJewelleryCardDetails()">
+                            <option value="">Select Payment Type</option>
+                            <option value="Credit Card">Credit Card</option>
+                            <option value="Debit Card">Debit Card</option>
+                            <option value="Cash on Delivery">Cash on Delivery</option>
+                        </select>
+                    </div>
+                    <div id="jewelleryCardDetails" class="card-details" style="display: none;">
+                        <div class="form-group">
+                            <label for="jewelleryNameOnCard">Name on Card:</label>
+                            <input type="text" id="jewelleryNameOnCard" placeholder="Enter name on card">
+                        </div>
+                        <div class="form-group">
+                            <label for="jewelleryCardNumber">Card Number:</label>
+                            <input type="text" id="jewelleryCardNumber" placeholder="Enter card number">
+                        </div>
+                        <div class="form-group">
+                            <label for="jewelleryCvv">CVV:</label>
+                            <input type="text" id="jewelleryCvv" placeholder="Enter CVV">
+                        </div>
+                        <div class="form-group">
+                            <label for="jewelleryExpiration">Expiration:</label>
+                            <input type="text" id="jewelleryExpiration" placeholder="MM/YY">
+                        </div>
+                    </div>
+                    <div class="checkout-total">
+                        <h3>Total: ₹<span id="jewelleryCheckoutTotal">0</span></h3>
+                    </div>
+                    <div class="checkout-buttons">
+                        <button class="place-order-btn" onclick="placeJewelleryOrder()" id="jewelleryPlaceOrderBtn">Place Order</button>
+                        <button class="place-order-btn" onclick="payAndConfirmJewellery()" id="jewelleryPayConfirmBtn" style="display: none;">Place Order</button>
+                        <button class="back-to-cart-btn" onclick="backToJewelleryCart()">Back to Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="jewelleryOrderPlaced" class="sub-tab-content">
+                <h2>Order Placed!</h2>
+                <div class="success-message">
+                    <h3>Congratulations! Your order has been confirmed!</h3>
+                    <p id="jewelleryInvoiceNumberDisplay"></p>
+                    <div class="success-buttons">
+                        <button class="download-invoice-btn" onclick="downloadJewelleryInvoice()">Download Invoice</button>
+                        <button class="continue-btn" onclick="continueToJewellery()">Continue</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="faqManagement" class="tab-content">
+            <div class="faq-search user-view">
+                <div class="search-container">
+                    <input type="text" id="faqSearchInput" placeholder="Search FAQs..." onkeyup="searchFAQs()">
+                    <span class="search-icon">🔍</span>
+                </div>
+            </div>
+
+            <div class="user-view">
+                <div class="faq-category-tabs" id="faqCategoryTabs"></div>
+                <div class="faq-content" id="faqContent"></div>
+            </div>
+
+            <div class="admin-only">
+                <div class="add-device">
+                    <div class="admin-only">
+                        <select id="faqCategory">
+                            <option value="">Select Category</option>
+                            <option value="API Testing">API Testing</option>
+                            <option value="Core JAVA">Core JAVA</option>
+                            <option value="GIT/GITHUB">GIT/GITHUB</option>
+                            <option value="Jenkins CI/CD">Jenkins CI/CD</option>
+                            <option value="Manual Testing">Manual Testing</option>
+                            <option value="Selenium WebDriver">Selenium WebDriver</option>
+                            <option value="SQL">SQL</option>
+                        </select>
+                    </div>
+                    <input type="text" id="faqQuestion" placeholder="Question">
+                    <textarea id="faqAnswer" placeholder="Answer" rows="3"></textarea>
+                    <button type="button" onclick="openImageUpload()" class="upload-image-btn">Upload Image</button>
+                    <button onclick="addFAQ()" id="addFAQBtn">Add FAQ</button>
+                    <button onclick="updateFAQ()" id="updateFAQBtn" style="display: none;">Update FAQ</button>
+                    <button onclick="cancelFAQEdit()" id="cancelFAQEditBtn" style="display: none;">Cancel</button>
+                </div>
+                <h3 class="admin-only">FAQ Management</h3>
+                <table id="faqTable" class="admin-only">
+                    <thead>
+                        <tr>
+                            <th>Category</th>
+                            <th>Question</th>
+                            <th>Answer</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="faqTableBody">
+                    </tbody>
+                </table>
+                <div class="pagination admin-only">
+                    <button onclick="firstFAQPage()" id="faqFirstBtn">First</button>
+                    <button onclick="previousFAQPage()" id="faqPrevBtn">Previous</button>
+                    <span id="faqPageInfo">Page 1 of 1</span>
+                    <button onclick="nextFAQPage()" id="faqNextBtn">Next</button>
+                    <button onclick="lastFAQPage()" id="faqLastBtn">Last</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="editUserModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <h2>Edit User</h2>
+            <input type="text" id="editUserName" placeholder="User Name">
+            <input type="text" id="editUserPassword" placeholder="Password">
+            <input type="email" id="editUserEmail" placeholder="Email">
+            <select id="editUserRole">
+                <option value="">Select UserType</option>
+                <option value="Admin">Admin</option>
+                <option value="Normal User">Normal User</option>
+            </select>
+            <button onclick="updateUser()">Update User</button>
+            <button onclick="closeEditUser()">Cancel</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+
+    <div id="imageUploadModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <h2>Upload Image</h2>
+            <input type="file" id="faqImageInput" accept="image/*" onchange="handleImageUpload()">
+            <div id="imagePreview"></div>
+            <button onclick="confirmImageUpload()">Confirm</button>
+            <button onclick="closeImageUpload()">Cancel</button>
+        </div>
+    </div>
+</body>
+</html>

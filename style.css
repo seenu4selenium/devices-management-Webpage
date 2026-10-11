@@ -1,0 +1,1789 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: url('images/bg.jpg') no-repeat center center fixed;
+    background-size: cover;
+    padding: 20px;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 30px;
+    background-color: #0074f0;
+    color: white;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.add-device {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+.add-device input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    min-width: 150px;
+}
+
+.add-device button {
+    padding: 10px 20px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.add-device button:hover {
+    background: #0056b3;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #f8f9fa;
+    font-weight: bold;
+}
+
+.delete-btn {
+    background: #dc3545;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.delete-btn:hover {
+    background: #c82333;
+}
+
+.status-active {
+    color: #28a745;
+    font-weight: bold;
+}
+
+.status-inactive {
+    color: #dc3545;
+    font-weight: bold;
+}
+
+.status-available {
+    color: #28a745;
+    font-weight: bold;
+}
+
+.status-in-use {
+    color: #007bff;
+    font-weight: bold;
+}
+
+.tabs {
+    display: flex;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #ddd;
+}
+
+.tab-button {
+    background: none;
+    border: none;
+    padding: 12px 24px;
+    cursor: pointer;
+    font-size: 16px;
+    border-bottom: 3px solid transparent;
+}
+
+.tab-button.active {
+    border-bottom-color: #0074f0;
+    color: #0074f0;
+    font-weight: bold;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('images/bg.jpg') no-repeat center center;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: white;
+    padding: 30px;
+    border-radius: 8px;
+    text-align: center;
+    min-width: 300px;
+}
+
+.modal-content input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.modal-content button {
+    width: 100%;
+    padding: 10px;
+    background: #0074f0;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.logout-btn {
+    background: #dc3545;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.user-info span {
+    color: #666;
+    font-size: 14px;
+}
+
+.logo-section {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.logo {
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+    background: #0074f0;
+    padding: 8px 12px;
+    border-radius: 6px;
+}
+
+.management-sections {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.section {
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.sub-tabs {
+    display: flex;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+}
+
+.sub-tab-button {
+    background: none;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 14px;
+    border-bottom: 2px solid transparent;
+}
+
+.sub-tab-button.active {
+    border-bottom-color: #0074f0;
+    color: #0074f0;
+    font-weight: bold;
+}
+
+.sub-tab-content {
+    display: none;
+}
+
+.sub-tab-content.active {
+    display: block;
+}
+
+.add-user {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.add-user input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    min-width: 150px;
+}
+
+.add-user select {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    min-width: 150px;
+}
+
+.add-user button {
+    padding: 10px 20px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.role-section {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+}
+
+.role-section label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 14px;
+}
+
+.reset-link {
+    display: block;
+    text-align: center;
+    margin-top: 10px;
+    color: #0074f0;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.reset-link:hover {
+    text-decoration: underline;
+}
+
+#resetPasswordModal .modal-content button {
+    width: 48%;
+    padding: 10px;
+    margin: 5px 1%;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#resetPasswordModal .modal-content button:first-of-type {
+    background: #0074f0;
+    color: white;
+}
+
+#resetPasswordModal .modal-content button:last-of-type {
+    background: #6c757d;
+    color: white;
+}
+
+#signUpModal .modal-content button {
+    width: 48%;
+    padding: 10px;
+    margin: 5px 1%;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#signUpModal .modal-content button:first-of-type {
+    background: #0074f0;
+    color: white;
+}
+
+#signUpModal .modal-content button:last-of-type {
+    background: #6c757d;
+    color: white;
+}
+
+#signUpModal .modal-content select {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.edit-btn {
+    background: #28a745;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    margin-right: 5px;
+}
+
+#editUserModal .modal-content button {
+    width: 48%;
+    padding: 10px;
+    margin: 5px 1%;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#editUserModal .modal-content button:first-of-type {
+    background: #0074f0;
+    color: white;
+}
+
+#editUserModal .modal-content button:last-of-type {
+    background: #6c757d;
+    color: white;
+}
+
+#editUserModal .modal-content select {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 20px 0;
+}
+
+.product-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    text-align: center;
+    background: white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.product-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.product-card h3 {
+    margin: 10px 0 5px 0;
+    color: #333;
+    font-size: 16px;
+}
+
+.product-card p {
+    font-size: 18px;
+    font-weight: bold;
+    color: #0074f0;
+    margin: 5px 0 10px 0;
+}
+
+.add-to-cart-btn {
+    background: #0074f0;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.add-to-cart-btn:hover {
+    background: #0056b3;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.pagination button {
+    background: #0074f0;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.pagination button:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}
+
+.pagination span {
+    font-weight: bold;
+    color: #333;
+}
+
+.filter-section {
+    margin-bottom: 15px;
+}
+
+.filter-section input {
+    width: 300px;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.filter-section select {
+    width: 150px;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    margin-left: 10px;
+}
+
+.clear-btn {
+    background: #6c757d;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 10px;
+    font-size: 14px;
+}
+
+.cart-item {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 10px;
+    gap: 15px;
+}
+
+.cart-item img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.cart-item-info {
+    flex: 1;
+    margin-left: 15px;
+}
+
+.cart-item-info h4 {
+    margin: 0 0 5px 0;
+    color: #333;
+}
+
+.cart-item-info p {
+    margin: 0;
+    color: #666;
+    font-size: 14px;
+}
+
+.cart-total {
+    text-align: right;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 2px solid #ddd;
+}
+
+.checkout-btn {
+    background: #28a745;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-right: 10px;
+}
+
+.clear-cart-btn {
+    background: #dc3545;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.remove-item-btn {
+    background: #dc3545;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 12px;
+}
+.checkout-form {
+    max-width: 500px;
+    margin: 20px 0;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.checkout-total {
+    margin: 20px 0;
+    padding: 15px;
+    background-color: #f5f5f5;
+    border-radius: 4px;
+}
+
+.checkout-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.place-order-btn,
+.back-to-cart-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.place-order-btn {
+    background-color: #28a745;
+    color: white;
+}
+
+.back-to-cart-btn {
+    background-color: #6c757d;
+    color: white;
+}
+.card-details {
+    margin: 15px 0;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+}
+
+.pay-confirm-btn {
+    background-color: #007bff;
+    color: white;
+}
+.success-message {
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.success-message h3 {
+    color: #28a745;
+    margin-bottom: 30px;
+}
+
+.success-buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+.download-invoice-btn,
+.continue-btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.download-invoice-btn {
+    background-color: #17a2b8;
+    color: white;
+}
+
+.continue-btn {
+    background-color: #28a745;
+    color: white;
+}
+.quantity-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 10px 20px 10px 0;
+}
+
+.qty-btn {
+    width: 30px;
+    height: 30px;
+    border: 1px solid #ddd;
+    background-color: #f8f9fa;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.qty-btn:hover {
+    background-color: #e9ecef;
+}
+
+.quantity {
+    min-width: 30px;
+    text-align: center;
+    font-weight: bold;
+}
+#invoiceNumberDisplay {
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+.datetime-container {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.ok-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+}
+.jewellery-layout {
+    display: flex;
+    gap: 20px;
+}
+
+.side-menu {
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.side-menu-btn {
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    background: #f9f9f9;
+    cursor: pointer;
+    text-align: left;
+    border-radius: 4px;
+}
+
+.side-menu-btn:hover {
+    background: #e9e9e9;
+}
+
+.side-menu-btn.active {
+    background: #007bff;
+    color: white;
+}
+
+.category-content {
+    flex: 1;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.gold-category {
+    display: none;
+}
+
+.gold-category.active {
+    display: block;
+}
+.jewellery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.jewellery-item {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    text-align: center;
+    background: white;
+}
+
+.jewellery-item img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.jewellery-item h4 {
+    margin: 10px 0 5px 0;
+    color: #333;
+}
+
+.jewellery-item p {
+    font-weight: bold;
+    color: #007bff;
+    font-size: 18px;
+}
+.image-placeholder {
+    width: 100%;
+    height: 200px;
+    background: linear-gradient(135deg, #ffd700, #ffed4e);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: #333;
+    border: 2px solid #e6c200;
+}
+.add-to-cart-btn {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+    width: 100%;
+}
+
+.add-to-cart-btn:hover {
+    background: #0056b3;
+}
+
+.cart-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.item-details {
+    flex: 1;
+}
+
+.quantity-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 5px;
+}
+
+.quantity-controls button {
+    width: 30px;
+    height: 30px;
+    border: 1px solid #ddd;
+    background: #f9f9f9;
+    cursor: pointer;
+}
+
+.item-total {
+    text-align: right;
+}
+
+.remove-btn {
+    background: #dc3545;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 5px;
+}
+.diamond-category {
+    display: none;
+}
+
+.diamond-category.active {
+    display: block;
+}
+.add-device input[type="text"],
+.add-device input[type="number"],
+.add-device input[type="datetime-local"] {
+    border: 2px solid #007bff;
+}
+.add-device select {
+    border: 2px solid #007bff;
+}
+#jewelleryCartItems .cart-item {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+    border: 2px solid #ddd;
+    border-radius: 12px;
+    margin-bottom: 15px;
+    background: linear-gradient(135deg, #f8f9fa, #ffffff);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+#jewelleryCartItems .cart-item img {
+    width: 100px;
+    height: 100px;
+    border-radius: 8px;
+    border: 2px solid #007bff;
+}
+
+#jewelleryCartItems .item-details h4 {
+    color: #007bff;
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+
+#jewelleryCartItems .item-details p {
+    font-size: 16px;
+    font-weight: bold;
+    color: #28a745;
+}
+
+#jewelleryCartItems .quantity-controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+#jewelleryCartItems .quantity-controls button {
+    width: 35px;
+    height: 35px;
+    border: 2px solid #007bff;
+    background: #007bff;
+    color: white;
+    border-radius: 50%;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+#jewelleryCartItems .quantity-controls span {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    min-width: 40px;
+    text-align: center;
+}
+
+#jewelleryCartItems .item-total {
+    text-align: right;
+}
+
+#jewelleryCartItems .item-total p {
+    font-size: 20px;
+    font-weight: bold;
+    color: #007bff;
+    margin-bottom: 10px;
+}
+
+#jewelleryCartItems .remove-btn {
+    background: #dc3545;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-weight: bold;
+}
+
+.cart-total {
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    color: white;
+    padding: 25px;
+    border-radius: 12px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.cart-total h3 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.checkout-btn, .clear-cart-btn {
+    padding: 12px 30px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0 10px;
+    cursor: pointer;
+}
+
+.checkout-btn {
+    background: #28a745;
+    color: white;
+}
+
+.clear-cart-btn {
+    background: #dc3545;
+    color: white;
+}
+#jewelleryCheckout .checkout-form {
+    max-width: 600px;
+    margin: 0 auto;
+    background: linear-gradient(135deg, #f8f9fa, #ffffff);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    border: 2px solid #007bff;
+}
+
+#jewelleryCheckout .form-group {
+    margin-bottom: 25px;
+}
+
+#jewelleryCheckout .form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #007bff;
+    font-size: 16px;
+}
+
+#jewelleryCheckout textarea,
+#jewelleryCheckout select,
+#jewelleryCheckout input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #007bff;
+    border-radius: 8px;
+    font-size: 14px;
+    background: white;
+    transition: all 0.3s ease;
+}
+
+#jewelleryCheckout textarea:focus,
+#jewelleryCheckout select:focus,
+#jewelleryCheckout input:focus {
+    outline: none;
+    border-color: #0056b3;
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.3);
+}
+
+#jewelleryCheckout .card-details {
+    background: linear-gradient(135deg, #e3f2fd, #ffffff);
+    padding: 20px;
+    border-radius: 10px;
+    border: 2px solid #007bff;
+    margin: 20px 0;
+}
+
+#jewelleryCheckout .checkout-total {
+    background: linear-gradient(135deg, #28a745, #20c997);
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    margin: 25px 0;
+    box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+}
+
+#jewelleryCheckout .checkout-total h3 {
+    font-size: 22px;
+    margin: 0;
+}
+
+#jewelleryCheckout .checkout-buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+#jewelleryCheckout .place-order-btn,
+#jewelleryCheckout .back-to-cart-btn {
+    padding: 15px 30px;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 150px;
+}
+
+#jewelleryCheckout .place-order-btn {
+    background: linear-gradient(135deg, #28a745, #20c997);
+    color: white;
+    box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+}
+
+#jewelleryCheckout .place-order-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(40, 167, 69, 0.4);
+}
+
+#jewelleryCheckout .back-to-cart-btn {
+    background: linear-gradient(135deg, #6c757d, #5a6268);
+    color: white;
+    box-shadow: 0 4px 12px rgba(108, 117, 125, 0.3);
+}
+
+#jewelleryCheckout .back-to-cart-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(108, 117, 125, 0.4);
+}
+#h2oJewellery {
+    background: linear-gradient(135deg, #f8f9fa, #ffffff, #f1f3f4);
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    border: 3px solid #dee2e6;
+}
+
+#h2oJewellery h2 {
+    color: #495057;
+    text-align: center;
+    font-size: 28px;
+    margin-bottom: 25px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+#h2oJewellery .sub-tabs {
+    background: linear-gradient(135deg, #ffffff, #f8f9fa);
+    padding: 15px;
+    border-radius: 12px;
+    margin-bottom: 25px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border: 2px solid #dee2e6;
+}
+
+#h2oJewellery .sub-tab-button {
+    background: linear-gradient(135deg, #f8f9fa, #ffffff);
+    color: #495057;
+    border: 2px solid #dee2e6;
+    padding: 12px 25px;
+    margin: 0 8px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 15px;
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+}
+
+#h2oJewellery .sub-tab-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    background: linear-gradient(135deg, #e9ecef, #f8f9fa);
+    color: #343a40;
+}
+
+#h2oJewellery .sub-tab-button.active {
+    background: linear-gradient(135deg, #6c757d, #495057);
+    color: white;
+    border-color: #495057;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+#h2oJewellery .jewellery-layout {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+    border: 2px solid #dee2e6;
+}
+
+#h2oJewellery .side-menu-btn {
+    background: linear-gradient(135deg, #ffffff, #f8f9fa);
+    border: 2px solid #dee2e6;
+    color: #495057;
+    padding: 12px 18px;
+    margin-bottom: 8px;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+#h2oJewellery .side-menu-btn:hover {
+    background: linear-gradient(135deg, #e9ecef, #f8f9fa);
+    transform: translateX(5px);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    color: #343a40;
+}
+
+#h2oJewellery .side-menu-btn.active {
+    background: linear-gradient(135deg, #6c757d, #495057);
+    color: white;
+    border-color: #495057;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+}
+
+#h2oJewellery .category-content {
+    background: rgba(248, 249, 250, 0.95);
+    border: 2px solid #dee2e6;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+#h2oJewellery .jewellery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 25px;
+    margin-top: 25px;
+}
+
+#h2oJewellery .jewellery-item {
+    background: linear-gradient(135deg, #ffffff, #f8f9fa);
+    border: 3px solid #dee2e6;
+    border-radius: 15px;
+    padding: 20px;
+    text-align: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+}
+
+#h2oJewellery .jewellery-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+    border-color: #adb5bd;
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+}
+
+#h2oJewellery .jewellery-item img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 2px solid #dee2e6;
+    margin-bottom: 15px;
+}
+
+#h2oJewellery .jewellery-item h4 {
+    color: #495057;
+    font-size: 16px;
+    margin: 15px 0 10px 0;
+    font-weight: bold;
+}
+
+#h2oJewellery .jewellery-item p {
+    color: #6c757d;
+    font-size: 20px;
+    font-weight: bold;
+    margin: 10px 0 15px 0;
+}
+
+#h2oJewellery .add-to-cart-btn {
+    background: linear-gradient(135deg, #6c757d, #495057);
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+#h2oJewellery .add-to-cart-btn:hover {
+    background: linear-gradient(135deg, #495057, #343a40);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+#h2oJewellery .image-placeholder {
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    border: 3px solid #dee2e6;
+    color: #495057;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.admin-only {
+    display: none;
+}
+
+.user-view {
+    display: none;
+}
+
+.faq-search {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.search-container {
+    position: relative;
+    display: inline-block;
+}
+
+.faq-search input {
+    width: 400px;
+    padding: 12px 45px 12px 20px;
+    border: 2px solid #007bff;
+    border-radius: 25px;
+    font-size: 16px;
+    outline: none;
+}
+
+.search-icon {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 18px;
+    color: #007bff;
+    pointer-events: none;
+}
+
+.faq-category-tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.faq-tab {
+    background: #f8f9fa;
+    border: 2px solid #dee2e6;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.faq-tab:hover {
+    background: #e9ecef;
+}
+
+.faq-tab.active {
+    background: #007bff;
+    color: white;
+    border-color: #007bff;
+}
+
+.faq-category-badge {
+    background: #28a745;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    display: inline-block;
+}
+
+.faq-notebook {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.faq-entry {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    border-left: 4px solid #007bff;
+}
+
+.faq-question-notebook {
+    font-size: 18px;
+    font-weight: bold;
+    color: #007bff;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #f8f9fa;
+}
+
+.faq-answer-notebook {
+    color: #495057;
+    line-height: 1.6;
+    font-size: 16px;
+}
+
+.faq-view-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.faq-view-table th {
+    background: #007bff;
+    color: white;
+    padding: 15px;
+    text-align: left;
+}
+
+.faq-view-table td {
+    padding: 15px;
+    border-bottom: 1px solid #dee2e6;
+    vertical-align: top;
+}
+
+.faq-view-table tr:hover {
+    background: #f8f9fa;
+}
+
+.faq-category-section {
+    margin-bottom: 30px;
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.faq-category-section h3 {
+    color: #007bff;
+    margin-bottom: 15px;
+    font-size: 20px;
+}
+
+.faq-item {
+    margin-bottom: 15px;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.faq-question {
+    background: #f8f9fa;
+    padding: 15px;
+    font-weight: bold;
+    color: #495057;
+    cursor: pointer;
+}
+
+.faq-answer {
+    padding: 15px;
+    background: white;
+    color: #6c757d;
+    line-height: 1.6;
+}
+
+/* FAQ Management Styles */
+#faqManagement {
+    background: linear-gradient(135deg, #f8f9fa, #ffffff);
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    border: 3px solid #dee2e6;
+}
+
+#faqManagement h2 {
+    color: #495057;
+    text-align: center;
+    font-size: 28px;
+    margin-bottom: 25px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+#faqManagement .sub-tabs {
+    background: linear-gradient(135deg, #ffffff, #f8f9fa);
+    padding: 15px;
+    border-radius: 12px;
+    margin-bottom: 25px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border: 2px solid #dee2e6;
+}
+
+#faqManagement .sub-tab-button {
+    background: linear-gradient(135deg, #f8f9fa, #ffffff);
+    color: #495057;
+    border: 2px solid #dee2e6;
+    padding: 12px 25px;
+    margin: 0 8px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 15px;
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+}
+
+#faqManagement .sub-tab-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    background: linear-gradient(135deg, #e9ecef, #f8f9fa);
+    color: #343a40;
+}
+
+#faqManagement .sub-tab-button.active {
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    color: white;
+    border-color: #0056b3;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 123, 255, 0.3);
+}
+
+#faqManagement .add-device {
+    background: linear-gradient(135deg, #ffffff, #f8f9fa);
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 25px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border: 2px solid #dee2e6;
+    display: grid;
+    grid-template-columns: 1fr 1fr 2fr auto auto auto;
+    gap: 15px;
+    align-items: end;
+}
+
+#faqManagement .add-device input,
+#faqManagement .add-device select,
+#faqManagement .add-device textarea {
+    border: 2px solid #007bff;
+    border-radius: 8px;
+    padding: 12px 15px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+#faqManagement .add-device input:focus,
+#faqManagement .add-device select:focus,
+#faqManagement .add-device textarea:focus {
+    outline: none;
+    border-color: #0056b3;
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.3);
+}
+
+#faqManagement .add-device button {
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
+}
+
+#faqManagement .add-device textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+#faqManagement .add-device button:hover {
+    background: linear-gradient(135deg, #0056b3, #004085);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 123, 255, 0.4);
+}
+
+.file-upload {
+    background: linear-gradient(135deg, #e3f2fd, #ffffff);
+    padding: 20px;
+    border-radius: 12px;
+    margin: 20px 0;
+    border: 2px dashed #007bff;
+    text-align: center;
+}
+
+.file-upload h3 {
+    color: #007bff;
+    margin-bottom: 15px;
+    font-size: 18px;
+}
+
+.file-upload input[type="file"] {
+    display: none;
+}
+
+.file-upload button {
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    margin: 10px 0;
+    transition: all 0.3s ease;
+}
+
+.file-upload button:hover {
+    background: linear-gradient(135deg, #0056b3, #004085);
+    transform: translateY(-2px);
+}
+
+.file-upload p {
+    color: #6c757d;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+#faqManagement table {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+    border: 2px solid #dee2e6;
+}
+
+#faqManagement th {
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    color: white;
+    font-weight: bold;
+    padding: 15px 12px;
+    text-align: center;
+}
+
+#faqManagement td {
+    padding: 12px;
+    border-bottom: 1px solid #dee2e6;
+    vertical-align: middle;
+}
+
+#faqManagement tr:hover {
+    background: linear-gradient(135deg, #f8f9fa, #ffffff);
+}
+
+#faqManagement .edit-btn {
+    background: linear-gradient(135deg, #28a745, #20c997);
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-right: 8px;
+    transition: all 0.3s ease;
+}
+
+#faqManagement .edit-btn:hover {
+    background: linear-gradient(135deg, #20c997, #17a2b8);
+    transform: translateY(-1px);
+}
+
+#faqManagement .delete-btn {
+    background: linear-gradient(135deg, #dc3545, #c82333);
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.upload-image-btn {
+    background: linear-gradient(135deg, #17a2b8, #138496);
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.upload-image-btn:hover {
+    background: linear-gradient(135deg, #138496, #117a8b);
+    transform: translateY(-2px);
+}
+
+#imageUploadModal .modal-content {
+    min-width: 400px;
+}
+
+#imageUploadModal .modal-content button {
+    width: 48%;
+    margin: 10px 1%;
+}
+
+#faqManagement .delete-btn:hover {
+    background: linear-gradient(135deg, #c82333, #bd2130);
+    transform: translateY(-1px);
+}
+
+/* Custom Calendar */
+.custom-calendar-wrapper {
+    position: relative;
+    flex: 1;
+    min-width: 150px;
+}
+
+.custom-calendar-wrapper input {
+    width: 100%;
+    padding: 10px 36px 10px 10px;
+    border: 2px solid #007bff;
+    border-radius: 4px;
+    cursor: pointer;
+    background: white url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23007bff' stroke-width='2'%3E%3Crect x='3' y='4' width='18' height='18' rx='2' ry='2'%3E%3C/rect%3E%3Cline x1='16' y1='2' x2='16' y2='6'%3E%3C/line%3E%3Cline x1='8' y1='2' x2='8' y2='6'%3E%3C/line%3E%3Cline x1='3' y1='10' x2='21' y2='10'%3E%3C/line%3E%3C/svg%3E") no-repeat right 10px center;
+}
+
+.custom-calendar {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    background: white;
+    border: 2px solid #007bff;
+    border-radius: 8px;
+    padding: 12px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    min-width: 260px;
+}
+
+.cal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.cal-header button {
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    width: 28px;
+    height: 28px;
+    font-size: 18px;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.cal-header span {
+    font-weight: bold;
+    color: #333;
+}
+
+.cal-days-header {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    text-align: center;
+    font-weight: bold;
+    color: #007bff;
+    font-size: 12px;
+    margin-bottom: 4px;
+}
+
+.cal-days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2px;
+}
+
+.cal-days span {
+    text-align: center;
+    padding: 6px 4px;
+    border-radius: 4px;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.cal-days span:hover:not(.cal-disabled) {
+    background: #e3f0ff;
+}
+
+.cal-days span.cal-selected {
+    background: #007bff;
+    color: white;
+    font-weight: bold;
+}
+
+.cal-days span.cal-disabled {
+    color: #ccc;
+    cursor: not-allowed;
+}
+
+.cal-footer {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.cal-footer button {
+    flex: 1;
+    padding: 8px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.cal-footer button:first-child {
+    background: #007bff;
+    color: white;
+}
+
+.cal-footer button:last-child {
+    background: #6c757d;
+    color: white;
+}

@@ -1,0 +1,21 @@
+Category: Manual Testing
+Question: What is Software Testing?
+Answer: Software Testing is the process of evaluating and verifying that a software application or system meets the 
+specified requirements and works as intended. It involves executing the software to identify defects, ensuring it 
+is free from critical bugs, and confirming that it delivers the expected business value.
+• The main goals are:
+o Verification: Does the software meet the design specifications?
+o Validation: Does the software meet the customer’s needs?
+• Testing is not only about finding defects; it’s also about preventing defects and improving quality
+
+Category: Manual Testing
+Question: Difference between Verification and Validation.
+Answer: 
+• Verification ensures the product is built according to the requirements and design. It answers, “Are we 
+building the product right?”
+Example: Reviewing documents, inspecting code.
+• Validation ensures the product meets the actual needs of the user. It answers, “Are we building the 
+right product?”
+Example: Testing the application with real-world scenarios.
+Key point: Verification is a static process (no code execution), while Validation is a dynamic process
+(involves running the code).
